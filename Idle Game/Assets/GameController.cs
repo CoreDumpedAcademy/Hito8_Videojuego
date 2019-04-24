@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
     public Slider GameProgress;
 
     public long coins;
+    public long reward = 50;             //Coin reward for completing game
+
     public float progress;
     private float max = 100;
 
@@ -23,13 +25,29 @@ public class GameController : MonoBehaviour
     void Update()
     {
         Coins.text = "Coins: " + coins;
+        progress++;
         actualizarSlider(max, progress);
     }
 
-    private void actualizarSlider(float max, float progress)
+    private void actualizarSlider(float mx, float prog)
     {
         float porcentaje;
-        porcentaje = progress / max;
+        porcentaje = prog / mx;
+        if (porcentaje >= 1)
+        {
+            do
+            {
+                completeGame();
+                progress = 0;              //Variable stored, not the parameter
+                porcentaje -= 1;
+            } while (porcentaje >= 1);
+        }
         GameProgress.value = porcentaje;
+    }
+
+    //Cualquier cosa que hagamos al completar un juego
+    private void completeGame()
+    {
+        coins += reward;
     }
 }

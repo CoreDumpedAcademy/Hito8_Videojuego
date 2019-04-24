@@ -376,5 +376,35 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3753444338864906756, guid: 56de2c718df940f4aad2edf779d3281c,
+        type: 3}
+      propertyPath: reward
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004677329201716747, guid: 56de2c718df940f4aad2edf779d3281c,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004677329201716747, guid: 56de2c718df940f4aad2edf779d3281c,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 690175185667890363, guid: 56de2c718df940f4aad2edf779d3281c,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 690175185667890363, guid: 56de2c718df940f4aad2edf779d3281c,
+        type: 3}
+      propertyPath: m_WholeNumbers
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 690175185667890363, guid: 56de2c718df940f4aad2edf779d3281c,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56de2c718df940f4aad2edf779d3281c, type: 3}
