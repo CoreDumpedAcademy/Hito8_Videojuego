@@ -25,8 +25,13 @@ public class GameController : MonoBehaviour
     void Update()
     {
         Coins.text = "Coins: " + coins;
-        progress++;
+        //progress++;
         actualizarSlider(max, progress);
+    }
+
+    public void addProgress(float prog)
+    {
+        progress += prog;
     }
 
     private void actualizarSlider(float mx, float prog)
