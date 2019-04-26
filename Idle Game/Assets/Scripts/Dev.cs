@@ -61,18 +61,22 @@ float counter = 0;                    //counts time to know when to produce
     public void gainExp(int gain)
     {
         exp += gain;
-        expBar.value = (float)exp / maxExp;
-        expBarText.text = expBar.value * 100 + "%";
+
         while (exp >= maxExp)
         {
+            Debug.Log("test");
             exp -= maxExp;
             levelUp();           //increase level and scale values
         }
+
+        expBar.value = (float)exp / maxExp;
+        expBarText.text = expBar.value * 100 + "%";
     }
 
     //mainly scales values related to production
     void levelUp()
     {
         lvl++;
+        lvlText.text = "Lvl: " + lvl;
     }
 }
