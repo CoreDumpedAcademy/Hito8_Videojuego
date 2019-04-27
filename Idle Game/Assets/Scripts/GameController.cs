@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
+
     public Text Coins;
     public Slider GameProgress;
 
@@ -17,6 +19,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        devFunctions = gameObject.GetComponent<DevController>();
         coins = 0;
         progress = 0;
     }
@@ -48,11 +51,18 @@ public class GameController : MonoBehaviour
             } while (porcentaje >= 1);
         }
         GameProgress.value = porcentaje;
+
+        spawnDev("Dev");
     }
 
     //Cualquier cosa que hagamos al completar un juego
     private void completeGame()
     {
         coins += reward;
+    }
+
+    public bool spawnDev(string dev)              //return bool indicating if the operation was succesful 
+    {
+        return devFunctions.spawnDev(dev);
     }
 }
