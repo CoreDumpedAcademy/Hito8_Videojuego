@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DevController : MonoBehaviour
 {
-    public GameObject devCanvas;
+    public GameObject devParent;
 
     public ArrayList devArray = new ArrayList();             //structure with references to all Devs in scene 
     public int maxDevs;                                      //maximun amount of devs allowed
     void Start()
     {
-        devCanvas = GameObject.Find("DevCanvas").transform.Find("Canvas").gameObject;
+        devParent = GameObject.Find("Devs").gameObject;
 
         maxDevs = 5;
     }
@@ -20,14 +20,13 @@ public class DevController : MonoBehaviour
         bool res = false;
         if(devArray.Count < maxDevs)
         {
-            string path = "Devs/" + dev;
+            string path = dev;
             GameObject devObj = (GameObject) Instantiate(Resources.Load(path));
 
-            devObj.transform.parent = devCanvas.transform;
+            devObj.transform.SetParent(devParent.transform, true);
 
             devArray.Add(devObj);
-
-            devArray[0].ToString();
+            
             res = true;
         }
         return res;

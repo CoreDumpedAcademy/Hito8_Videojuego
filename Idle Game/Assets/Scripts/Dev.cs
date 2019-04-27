@@ -68,7 +68,6 @@ float counter = 0;                    //counts time to know when to produce
 
         while (exp >= maxExp)
         {
-            Debug.Log("test");
             exp -= maxExp;
             levelUp();           //increase level and scale values
         }
