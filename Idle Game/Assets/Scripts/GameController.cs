@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
+
     public Text Coins;
     public Slider GameProgress;
 
@@ -22,6 +24,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        devFunctions = gameObject.GetComponent<DevController>();
+
         max = initialMax;
         reward = initialReward;
         coins = 0;
@@ -35,6 +39,7 @@ public class GameController : MonoBehaviour
         Coins.text = "Coins: " + coins;
         //progress++;
         actualizarSlider(max, progress);
+        spawnDev("Dev");
     }
 
     public void addProgress(float prog)
@@ -44,16 +49,12 @@ public class GameController : MonoBehaviour
 
     private void actualizarSlider(float mx, float prog)
     {
-        float porcentaje;
-        porcentaje = prog / mx;
-        if (porcentaje >= 1)
+        float porcentaje = prog / mx;
+        while (porcentaje >= 1)
         {
-            do
-            {
-                completeGame();
-                progress = 0;              //Variable stored, not the parameter
-                porcentaje -= 1;
-            } while (porcentaje >= 1);
+            porcentaje -= 1;
+            progress = porcentaje;              //Variable stored, not the parameter
+            completeGame();
         }
         GameProgress.value = porcentaje;
     }
@@ -82,5 +83,10 @@ public class GameController : MonoBehaviour
     private void scaleReward()
     {
         reward += rewardIncrease;
+    }
+
+    public bool spawnDev(string dev)              //return bool indicating if the operation was succesful 
+    {
+        return devFunctions.spawnDev(dev);
     }
 }
