@@ -29,6 +29,7 @@ public class Dev : MonoBehaviour
     public float exp = 0;
     public int expGain;                   //exp it's gaining right now
     public int lvl = 1;                   //current level
+    int maxLvl = 50;
     float counter = 0;                    //counts time to know when to produce
     private float increaseExp = 1.1f;
     private float textExp;
@@ -55,10 +56,10 @@ public class Dev : MonoBehaviour
     void Update()
     {
         counter += Time.deltaTime;
-        if(counter >= prodPeriod)
+        if (counter >= prodPeriod)
         {
             controller.addProgress(prod);
-            gainExp(expGain);
+            if (lvl < maxLvl) { gainExp(expGain); }
             counter -= prodPeriod;
         }
     }
@@ -67,13 +68,20 @@ public class Dev : MonoBehaviour
     {
         exp += gain;
 
-        while (exp >= maxExp)
+        while (exp >= maxExp && lvl < maxLvl)
         {
             exp -= maxExp;
             levelUp();           //increase level and scale values
         }
 
-        expBar.value = (float)exp / maxExp;
+        if(lvl < maxLvl)
+        {
+            expBar.value = (float)exp / maxExp;
+        }
+        else
+        {
+            expBar.value = 1f;
+        }
         textExp = expBar.value * 100;
         expBarText.text = textExp.ToString("f2") + "%"; 
     }
@@ -82,7 +90,15 @@ public class Dev : MonoBehaviour
     void levelUp()
     {
         lvl++;
-        lvlText.text = "Lvl: " + lvl;
+        if (lvl < maxLvl)
+        {
+            lvlText.text = "Lvl: " + lvl;
+        }
+        else
+        {
+            lvlText.text = "Lvl: MX";
+        }
+        
         scaleExp();
         scaleProduction();
     }
