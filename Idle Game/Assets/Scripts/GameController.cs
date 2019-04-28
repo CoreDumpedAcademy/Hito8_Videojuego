@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public Slider GameProgress;
 
     public long coins;
+    public long cost = 150;
     public long initialReward = 50;             //Coin reward for completing game
     public long reward;
     private long rewardIncrease = 25;
@@ -28,7 +29,7 @@ public class GameController : MonoBehaviour
 
         max = initialMax;
         reward = initialReward;
-        coins = 0;
+        coins = 150;
         progress = 0;
         gameCounter = 0;
     }
@@ -39,7 +40,7 @@ public class GameController : MonoBehaviour
         Coins.text = "Coins: " + coins;
         //progress++;
         actualizarSlider(max, progress);
-        spawnDev("Dev");
+        //spawnDev("Dev");
     }
 
     public void addProgress(float prog)
@@ -88,5 +89,26 @@ public class GameController : MonoBehaviour
     public bool spawnDev(string dev)              //return bool indicating if the operation was succesful 
     {
         return devFunctions.spawnDev(dev);
+    }
+
+    public void BuyDev()
+    {
+        if (coins >= cost)
+        {
+            Debug.Log("Bieen tienes dinero!");
+            if (spawnDev("Dev"))
+            {
+                coins -= cost;
+                Debug.Log("Amazon le enviara su pedido en brevas.");
+            }
+            else
+            {
+                Debug.Log("Amazon se niega a darte lo que le has pedido.");
+            }
+        }
+        else
+        {
+            Debug.Log("pobreton!!");
+        }
     }
 }
