@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1965383429098329588}
   - component: {fileID: 1965383429098329589}
+  - component: {fileID: 6279582508054441590}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -46,5 +47,21 @@ MonoBehaviour:
   Coins: {fileID: 0}
   GameProgress: {fileID: 0}
   coins: 0
+  initialReward: 50
+  reward: 0
   progress: 0
-  max: 0
+  gameCounter: 0
+--- !u!114 &6279582508054441590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965383429098329586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5df6372b43f6ba4585114c277f294e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  devParent: {fileID: 0}
+  maxDevs: 5
