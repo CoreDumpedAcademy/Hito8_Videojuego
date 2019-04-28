@@ -84,6 +84,11 @@ float counter = 0;                    //counts time to know when to produce
     {
         lvl++;
         lvlText.text = "Lvl: " + lvl;
+        scaleExp();
+    }
+
+    void scaleExp()
+    {
         maxExp *= increaseExp;
     }
 }
