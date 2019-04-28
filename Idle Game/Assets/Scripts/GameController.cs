@@ -9,16 +9,24 @@ public class GameController : MonoBehaviour
     public Slider GameProgress;
 
     public long coins;
-    public long reward = 50;             //Coin reward for completing game
+    public long initialReward = 50;             //Coin reward for completing game
+    public long reward;
+    private long rewardIncrease = 25;
 
-    public float progress;
-    private float max = 100;
+    public float progress;                     //game progress points     
+    private float max;                         //progress points to complete a game  
+    private float initialMax = 10;                
+    private float maxScaleFactor = 0.2f;
 
+    public int gameCounter;                    //How many games have been completed
     // Start is called before the first frame update
     void Start()
     {
+        max = initialMax;
+        reward = initialReward;
         coins = 0;
         progress = 0;
+        gameCounter = 0;
     }
 
     // Update is called once per frame
@@ -54,5 +62,25 @@ public class GameController : MonoBehaviour
     private void completeGame()
     {
         coins += reward;
+        gameCounter++;
+        scaleMaxProd();
+        scaleReward();
+    }
+
+    private void scaleMaxProd()
+    {
+        if(max <= 1)
+        {
+            max = initialMax;
+        }
+        else
+        {
+            max += max * maxScaleFactor;
+        }
+    }
+
+    private void scaleReward()
+    {
+        reward += rewardIncrease;
     }
 }
