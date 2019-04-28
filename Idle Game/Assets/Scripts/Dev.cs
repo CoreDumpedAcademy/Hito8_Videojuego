@@ -37,10 +37,10 @@ float counter = 0;                    //counts time to know when to produce
         controllerObj = GameObject.Find("GameController");
         controller = controllerObj.GetComponent<GameController>();
 
-        origin = transform.Find("Origin").gameObject;
+        //origin = transform.Find("Origin").gameObject;
 
-        sprite = origin.transform.Find("Sprite").GetComponent<Sprite>();
-        lvlText = origin.transform.Find("Nivel").GetComponent<Text>();
+        sprite = transform.Find("Sprite").GetComponent<Sprite>();
+        lvlText = transform.Find("Nivel").GetComponent<Text>();
         expBarText = expBar.transform.Find("Valor").GetComponent<Text>();
 
         lvlText.text = "Lvl: " + lvl;

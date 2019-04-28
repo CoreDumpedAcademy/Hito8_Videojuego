@@ -8,9 +8,11 @@ public class DevController : MonoBehaviour
 
     public ArrayList devArray = new ArrayList();             //structure with references to all Devs in scene 
     public int maxDevs;                                      //maximun amount of devs allowed
+
+
     void Start()
     {
-        devParent = GameObject.Find("Devs").gameObject;
+        devParent = GameObject.Find("DevGrid").gameObject;
 
         maxDevs = 5;
     }
@@ -20,15 +22,27 @@ public class DevController : MonoBehaviour
         bool res = false;
         if(devArray.Count < maxDevs)
         {
-            string path = dev;
-            GameObject devObj = (GameObject) Instantiate(Resources.Load(path));
-
-            devObj.transform.SetParent(devParent.transform, true);
-
+            GameObject devObj = getDev(dev);
+            devObj = (GameObject)Instantiate(devObj);
+            devObj.transform.SetParent(devParent.transform);
             devArray.Add(devObj);
-            
             res = true;
         }
         return res;
+    }
+
+    //Provisionally loading prefabs from Resources
+    GameObject getDev(string dev)
+    {
+        return (GameObject)Resources.Load(dev);
+    }
+
+    void positionDev(GameObject dev)
+    {
+        Transform origin = dev.transform.Find("Origin");
+        if(devArray.Count == 0)
+        {
+            origin.transform.position = Vector3.zero;
+        }
     }
 }
