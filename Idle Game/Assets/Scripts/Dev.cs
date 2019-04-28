@@ -10,6 +10,8 @@ public class Dev : MonoBehaviour
     GameObject controllerObj;
     GameController controller;
 
+    GameObject origin;
+
     Sprite sprite;
     Text lvlText;
     public Slider expBar;
@@ -34,6 +36,8 @@ float counter = 0;                    //counts time to know when to produce
     {
         controllerObj = GameObject.Find("GameController");
         controller = controllerObj.GetComponent<GameController>();
+
+        //origin = transform.Find("Origin").gameObject;
 
         sprite = transform.Find("Sprite").GetComponent<Sprite>();
         lvlText = transform.Find("Nivel").GetComponent<Text>();
@@ -64,7 +68,6 @@ float counter = 0;                    //counts time to know when to produce
 
         while (exp >= maxExp)
         {
-            Debug.Log("test");
             exp -= maxExp;
             levelUp();           //increase level and scale values
         }
