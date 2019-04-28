@@ -21,16 +21,18 @@ public class Dev : MonoBehaviour
     public float baseProd = 2;            //amount of progress it produces initially
     public float baseProdFreq = 1f;       //times it generates production by second
     public int baseExpGain = 1;           //Starting exp gain each time it generates progress
-    public int maxExp = 10;               //exp Necessary to level up
+    public float maxExp = 10;               //exp Necessary to level up
 
 
     public float prodFreq;
     float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
     public float prod;                    //amount it currently produces 
-    public int exp = 0;
+    public float exp = 0;
     public int expGain;                   //exp it's gaining right now
     public int lvl = 1;                   //current level
 float counter = 0;                    //counts time to know when to produce
+    private float increaseExp = 1.1f;
+    private float textExp;
 
     void Start()
     {
@@ -73,7 +75,8 @@ float counter = 0;                    //counts time to know when to produce
         }
 
         expBar.value = (float)exp / maxExp;
-        expBarText.text = expBar.value * 100 + "%";
+        textExp = expBar.value * 100;
+        expBarText.text = textExp.ToString("f2") + "%"; 
     }
 
     //mainly scales values related to production
@@ -81,5 +84,6 @@ float counter = 0;                    //counts time to know when to produce
     {
         lvl++;
         lvlText.text = "Lvl: " + lvl;
+        maxExp *= increaseExp;
     }
 }
