@@ -23,23 +23,22 @@ public class Dev : MonoBehaviour
     public int baseExpGain = 1;           //Starting exp gain each time it generates progress
     public float maxExp = 10;               //exp Necessary to level up
 
-
     public float prodFreq;
     float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
     public float prod;                    //amount it currently produces 
     public float exp = 0;
     public int expGain;                   //exp it's gaining right now
     public int lvl = 1;                   //current level
-float counter = 0;                    //counts time to know when to produce
+    float counter = 0;                    //counts time to know when to produce
     private float increaseExp = 1.1f;
     private float textExp;
+    private float increaseProd = 1.2f;
+
 
     void Start()
     {
         controllerObj = GameObject.Find("GameController");
         controller = controllerObj.GetComponent<GameController>();
-
-        //origin = transform.Find("Origin").gameObject;
 
         sprite = transform.Find("Sprite").GetComponent<Sprite>();
         lvlText = transform.Find("Nivel").GetComponent<Text>();
@@ -85,10 +84,16 @@ float counter = 0;                    //counts time to know when to produce
         lvl++;
         lvlText.text = "Lvl: " + lvl;
         scaleExp();
+        scaleProduction();
     }
 
     void scaleExp()
     {
         maxExp *= increaseExp;
+    }
+
+    void scaleProduction()
+    {
+        prod *= increaseProd;
     }
 }
