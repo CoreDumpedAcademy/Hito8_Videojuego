@@ -12,16 +12,17 @@ public class GameController : MonoBehaviour
 
     public long coins;
     public long cost = 150;
-    public long initialReward = 50;             //Coin reward for completing game
+    public long initialReward = 10;             //Coin reward for completing game
     public long reward;
-    private long rewardIncrease = 25;
+    private long rewardIncrease = 10;
 
     public float progress;                     //game progress points     
     private float max;                         //progress points to complete a game  
     private float initialMax = 10;                
-    private float maxScaleFactor = 0.2f;
+    private float maxScaleFactor = 0.5f;
 
     public int gameCounter;                    //How many games have been completed
+    int rewardThreshold = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -83,7 +84,10 @@ public class GameController : MonoBehaviour
 
     private void scaleReward()
     {
-        reward += rewardIncrease;
+        if (gameCounter % rewardThreshold == 0)
+        {
+            reward += rewardIncrease;
+        }
     }
 
     public bool spawnDev(string dev)              //return bool indicating if the operation was succesful 

@@ -18,10 +18,10 @@ public class Dev : MonoBehaviour
     Text expBarText;
 
     //Variables that differentiate behaivour of different Devs
-    public float baseProd = 2;            //amount of progress it produces initially
-    public float baseProdFreq = 1f;       //times it generates production by second
-    public int baseExpGain = 1;           //Starting exp gain each time it generates progress
-    public float maxExp = 10;               //exp Necessary to level up
+    float baseProd = 1;            //amount of progress it produces initially
+    float baseProdFreq = 3f;       //times it generates production by second
+    int baseExpGain = 1;           //Starting exp gain each time it generates progress
+    float maxExp = 30;             //exp Necessary to level up
 
     public float prodFreq;
     float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
@@ -31,9 +31,9 @@ public class Dev : MonoBehaviour
     public int lvl = 1;                   //current level
     int maxLvl = 50;
     float counter = 0;                    //counts time to know when to produce
-    private float increaseExp = 1.1f;
+    private float increaseExp = 1.15f;
     private float textExp;
-    private float increaseProd = 1.2f;
+    private float increaseProd = 1.1f;
 
 
     void Start()
