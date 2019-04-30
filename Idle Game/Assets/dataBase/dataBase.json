@@ -1,0 +1,25 @@
+{
+    "devArray":[
+        {
+            "name": "Becario",    
+            "cost": "100",
+            "production": "1",    
+            "frequency": "3",
+            "maxExp": "30"
+        },
+        {
+            "name": "Empleado",    
+            "cost": "200",
+            "production": "1.5",    
+            "frequency": "3",
+            "maxExp": "30"
+        },
+        {
+            "name": "Matado",    
+            "cost": "300",
+            "production": "1.5",    
+            "frequency": "5",
+            "maxExp": "30"
+        }
+    ]
+}
