@@ -9,21 +9,25 @@ public class GameController : MonoBehaviour
 
     public Text Coins;
     public Slider GameProgress;
-
+    
+    //Variables in save data
     public long coins;
-    public long cost = 150;
-    public long initialReward = 10;             //Coin reward for completing game
-    public long reward;
-    private long rewardIncrease = 10;
-
+    public int gameCounter;                    //How many games have been completed
     public float progress;                     //game progress points     
+
+    //Calculated in game
+    public long reward;
     private float max;                         //progress points to complete a game  
+
+    //in game "constants"
+    public long initialReward = 10;             //Coin reward for completing game
+    private long rewardIncrease = 10;
     private float initialMax = 10;                
     private float maxScaleFactor = 0.5f;
-
-    public int gameCounter;                    //How many games have been completed
     int rewardThreshold = 5;
-    // Start is called before the first frame update
+
+    public long cost = 150;
+
     void Start()
     {
         devFunctions = gameObject.GetComponent<DevController>();
@@ -34,14 +38,15 @@ public class GameController : MonoBehaviour
         progress = 0;
         gameCounter = 0;
     }
-
-    // Update is called once per frame
     void Update()
     {
         Coins.text = "Coins: " + coins;
         //progress++;
         actualizarSlider(max, progress);
         //spawnDev("Dev");
+
+        if (Input.GetButtonDown("Submit")) { saveGame(); }
+        else if (Input.GetButtonDown("Cancel")) { loadGame(); }
     }
 
     public void addProgress(float prog)
@@ -61,13 +66,16 @@ public class GameController : MonoBehaviour
         GameProgress.value = porcentaje;
     }
 
-    //Cualquier cosa que hagamos al completar un juego
+    //Anything done when completing a game
     private void completeGame()
     {
         coins += reward;
         gameCounter++;
         scaleMaxProd();
-        scaleReward();
+        if(gameCounter % rewardThreshold == 0)
+        {
+            scaleReward();
+        }      
     }
 
     private void scaleMaxProd()
@@ -84,12 +92,10 @@ public class GameController : MonoBehaviour
 
     private void scaleReward()
     {
-        if (gameCounter % rewardThreshold == 0)
-        {
-            reward += rewardIncrease;
-        }
+       reward += rewardIncrease;
     }
 
+    //Anythin related to Devs
     public bool spawnDev(string dev)              //return bool indicating if the operation was succesful 
     {
         return devFunctions.spawnDev(dev);
@@ -113,6 +119,43 @@ public class GameController : MonoBehaviour
         else
         {
             Debug.Log("pobreton!!");
+        }
+    }
+
+    //Saving game stuff
+    public void saveGame()
+    {
+        SaveData save = new SaveData();
+        save.coins = coins;
+        save.progress = progress;
+        save.gameCounter = gameCounter;
+
+        Debug.Log("Save data created");
+        //get  devs into save
+
+        save.saveInLocal();
+    }
+
+    public void loadGame()
+    {
+        //get data
+        SaveData save = new SaveData();
+        save = save.getFromLocal();       //test data is saved in local
+        Debug.Log("Save data retrived");
+
+        //set variables
+        coins = save.coins;
+        progress = save.progress;
+        gameCounter = save.gameCounter;
+
+        //Simulate in-game processes
+        for(int i = 0; i < gameCounter; i++)
+        {
+            scaleMaxProd();
+            if(i % rewardThreshold == 0)
+            {
+                scaleReward();
+            }
         }
     }
 }
