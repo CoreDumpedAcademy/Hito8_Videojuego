@@ -47,6 +47,8 @@ public class GameController : MonoBehaviour
 
         if (Input.GetButtonDown("Submit")) { saveGame(); }
         else if (Input.GetButtonDown("Cancel")) { loadGame(); }
+        else if (Input.GetKeyDown(KeyCode.UpArrow)) { devFunctions.writeDevs(); }
+        else if (Input.GetKeyDown(KeyCode.DownArrow)) { devFunctions.clearDevs(); }
     }
 
     public void addProgress(float prog)
@@ -98,7 +100,7 @@ public class GameController : MonoBehaviour
     //Anythin related to Devs
     public bool spawnDev(string dev)              //return bool indicating if the operation was succesful 
     {
-        return devFunctions.spawnDev(dev);
+        return devFunctions.spawnDev(dev) != null;
     }
 
     public void BuyDev()
@@ -125,15 +127,21 @@ public class GameController : MonoBehaviour
     //Saving game stuff
     public void saveGame()
     {
+        SaveData save = generateSaveData();
+        Debug.Log("Save data created");
+        save.saveInLocal();
+    }
+
+    public SaveData generateSaveData()
+    {
         SaveData save = new SaveData();
         save.coins = coins;
         save.progress = progress;
         save.gameCounter = gameCounter;
+        save.devDataArray = devFunctions.getDevData();
+        //get dev data
 
-        Debug.Log("Save data created");
-        //get  devs into save
-
-        save.saveInLocal();
+        return save;
     }
 
     public void loadGame()
@@ -143,16 +151,28 @@ public class GameController : MonoBehaviour
         save = save.getFromLocal();       //test data is saved in local
         Debug.Log("Save data retrived");
 
-        //set variables
+        //reset variables
+        max = initialMax;
+        reward = initialReward;
+        
+        //set saved values
         coins = save.coins;
         progress = save.progress;
         gameCounter = save.gameCounter;
 
+        devFunctions.clearDevs();
+        devFunctions.recreateDevs(save.devDataArray);
+
         //Simulate in-game processes
-        for(int i = 0; i < gameCounter; i++)
+        simulateInGameProgress();
+    }
+
+    void simulateInGameProgress()
+    {
+        for (int i = 0; i < gameCounter; i++)
         {
             scaleMaxProd();
-            if(i % rewardThreshold == 0)
+            if (i % rewardThreshold == 0)
             {
                 scaleReward();
             }

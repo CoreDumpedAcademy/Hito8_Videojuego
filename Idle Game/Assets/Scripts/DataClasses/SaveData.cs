@@ -11,6 +11,7 @@ public class SaveData
     public long coins;
     public float progress;
     public int gameCounter;
+    public ArrayList devDataArray;
 
     public SaveData()
     {

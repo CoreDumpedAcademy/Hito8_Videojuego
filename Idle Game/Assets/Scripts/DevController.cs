@@ -16,18 +16,19 @@ public class DevController : MonoBehaviour
         devParent = GameObject.Find("DevGrid").gameObject;
     }
 
-    public bool spawnDev(string dev)                 //takes the nave of the prefab as a parameter. Returns bool indicating if the operation was succesful
+    public Dev spawnDev(string dev)                 //takes the nave of the type as a parameter. Returns Dev script of the object created
     {
-        bool res = false;
+        Dev devScript = null;
         if(devArray.Count < maxDevs)
         {
             GameObject devObj = getDev(dev);
             devObj = (GameObject)Instantiate(devObj);
             devObj.transform.SetParent(devParent.transform);
-            devArray.Add(devObj);
-            res = true;
+            devScript = devObj.GetComponent<Dev>();
+            //Debug.Log(devScript.getData().ToString());
+            devArray.Add(devScript);
         }
-        return res;
+        return devScript;
     }
 
     //Provisionally loading prefabs from Resources
@@ -36,12 +37,50 @@ public class DevController : MonoBehaviour
         return (GameObject)Resources.Load(dev);
     }
 
-    void positionDev(GameObject dev)
+    //To save data
+    public ArrayList getDevData()
     {
-        Transform origin = dev.transform.Find("Origin");
-        if(devArray.Count == 0)
+        ArrayList devDataArray = new ArrayList();
+        int count = 0;
+        foreach(Dev dev in devArray)
         {
-            origin.transform.position = Vector3.zero;
+            Debug.Log(++count);
+            Debug.Log(dev.getData().ToString());
+            devDataArray.Add(dev.getData());
+        }
+        return devDataArray;
+    }
+    //To load data
+    public void clearDevs()
+    {
+        foreach(Dev dev in devArray)
+        {
+            GameObject.Destroy(dev.gameObject);
+        }
+        devArray.Clear();
+        writeDevs();
+    }
+
+    public void recreateDevs(ArrayList devDataArray)
+    {
+        int count = 0;
+        foreach (DevData dev in devDataArray)
+        {
+            //Debug.Log(++count);
+            //Debug.Log(dev.ToString());
+            Dev devScript = spawnDev(dev.type);
+            devScript.setData(dev);
+        }
+    }
+
+    public void writeDevs()
+    {
+        Debug.Log("Count: " + devArray.Count);
+        int count = 0;
+        foreach(Dev dev in devArray)
+        {
+            Debug.Log("Element: " + ++count);
+            Debug.Log(dev.getData().ToString());
         }
     }
 }
