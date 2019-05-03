@@ -6,7 +6,7 @@ public class DevController : MonoBehaviour
 {
     public GameObject devParent;
 
-    public ArrayList devArray = new ArrayList();             //structure with references to all Devs in scene 
+    public List<Dev> devArray = new List<Dev>();             //structure with references to all Devs in scene 
 
     public int maxDevs = 8;                                      //maximun amount of devs allowed
 
@@ -38,9 +38,9 @@ public class DevController : MonoBehaviour
     }
 
     //To save data
-    public ArrayList getDevData()
+    public List<DevData> getDevData()
     {
-        ArrayList devDataArray = new ArrayList();
+        List<DevData> devDataArray = new List<DevData>();
         int count = 0;
         foreach(Dev dev in devArray)
         {
@@ -61,7 +61,7 @@ public class DevController : MonoBehaviour
         writeDevs();
     }
 
-    public void recreateDevs(ArrayList devDataArray)
+    public void recreateDevs(List<DevData> devDataArray)
     {
         int count = 0;
         foreach (DevData dev in devDataArray)
