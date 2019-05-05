@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17103c897abfe5345b277734139989d5, type: 3}
-  m_Name: OnDefect
+  m_Name: Default
   m_EditorClassIdentifier: 
   artwork: {fileID: 21300000, guid: b3f9829a33d052f479b3c4f540bfd02b, type: 3}
   devName: Empty
   cost: 0
   production: 0
-  frequency: 0
+  frequency: 1
   maxExp: 0

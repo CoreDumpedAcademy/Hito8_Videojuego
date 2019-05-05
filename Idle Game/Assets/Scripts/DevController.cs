@@ -11,6 +11,7 @@ public class DevController : MonoBehaviour
     public int maxDevs = 8;                                      //maximun amount of devs allowed
 
     string devPrefName = "Dev";
+    string devTypePath = "DevTypes";                       //Path in the resources folder to the stored DevData scriptable objects
 
     void Start()
     {
@@ -67,11 +68,22 @@ public class DevController : MonoBehaviour
         int count = 0;
         foreach (DevState dev in devStateArray)
         {
-            //Debug.Log(++count);
+            Debug.Log(++count);
             //Debug.Log(dev.ToString());
-            //Dev devScript = spawnDev(dev.type);
-            //devScript.setState(dev);
+            DevData devType = findTypeByName(dev.type);
+            //Debug.Log(devType.name);
+            Dev devScript = spawnDev(devType);
+            devScript.setState(dev);
         }
+    }
+
+    DevData findTypeByName(string name)
+    {
+        DevData devType;
+        string path = devTypePath + "/" + name;
+        Debug.Log(path);
+        devType = Resources.Load<DevData>(path);
+        return devType;
     }
 
     public void writeDevs()

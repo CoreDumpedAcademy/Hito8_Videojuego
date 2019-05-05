@@ -13,6 +13,7 @@ public class Dev : MonoBehaviour
     GameObject origin;
 
     DevData typeData;
+    public DevData defaultTypeData;
 
     Image sprite;
 
@@ -64,11 +65,20 @@ public class Dev : MonoBehaviour
 
     public void startUp(DevData type)
     {
-        typeData = type;
+        if (type != null)
+        {
+            typeData = type;
+        }
+        else
+        {
+            typeData = defaultTypeData;
+        }
         prod = typeData.production;
         prodFreq = typeData.frequency;
         prodPeriod = 1 / prodFreq;
         maxExp = typeData.maxExp;
+        
+        
     }
 
     void Update()
