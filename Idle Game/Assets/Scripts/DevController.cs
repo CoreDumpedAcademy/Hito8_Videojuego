@@ -6,17 +6,17 @@ public class DevController : MonoBehaviour
 {
     public GameObject devParent;
 
-    public ArrayList devArray = new ArrayList();             //structure with references to all Devs in scene 
+    public List<Dev> devArray = new List<Dev>();             //structure with references to all Devs in scene 
 
     public int maxDevs = 8;                                      //maximun amount of devs allowed
 
     string devPrefName = "Dev";
+    string devTypePath = "DevTypes";                       //Path in the resources folder to the stored DevData scriptable objects
 
     void Start()
     {
         devParent = GameObject.Find("DevGrid").gameObject;
     }
-
     public Dev spawnDev(DevData devData)                 //takes the nave of the prefab as a parameter. Returns bool indicating if the operation was succesful
     {
         Dev devScript = null;
@@ -26,8 +26,9 @@ public class DevController : MonoBehaviour
             GameObject devObj = (GameObject)Instantiate(devPrefab);
             devObj.transform.SetParent(devParent.transform);
             devScript = devObj.GetComponent<Dev>();
+            //Debug.Log(devScript.getState().ToString());
             devScript.startUp(devData);
-            devArray.Add(devObj);           
+            devArray.Add(devScript);
         }
         return devScript;
     }
@@ -38,12 +39,61 @@ public class DevController : MonoBehaviour
         return (GameObject)Resources.Load(dev);
     }
     */
-    void positionDev(GameObject dev)
+    //To save state
+    public List<DevState> getDevState()
     {
-        Transform origin = dev.transform.Find("Origin");
-        if(devArray.Count == 0)
+        List<DevState> devStateArray = new List<DevState>();
+        int count = 0;
+        foreach(Dev dev in devArray)
         {
-            origin.transform.position = Vector3.zero;
+            Debug.Log(++count);
+            Debug.Log(dev.getState().ToString());
+            devStateArray.Add(dev.getState());
+        }
+        return devStateArray;
+    }
+    //To load state
+    public void clearDevs()
+    {
+        foreach(Dev dev in devArray)
+        {
+            GameObject.Destroy(dev.gameObject);
+        }
+        devArray.Clear();
+        writeDevs();
+    }
+
+    public void recreateDevs(List<DevState> devStateArray)
+    {
+        int count = 0;
+        foreach (DevState dev in devStateArray)
+        {
+            Debug.Log(++count);
+            //Debug.Log(dev.ToString());
+            DevData devType = findTypeByName(dev.type);
+            //Debug.Log(devType.name);
+            Dev devScript = spawnDev(devType);
+            devScript.setState(dev);
+        }
+    }
+
+    DevData findTypeByName(string name)
+    {
+        DevData devType;
+        string path = devTypePath + "/" + name;
+        Debug.Log(path);
+        devType = Resources.Load<DevData>(path);
+        return devType;
+    }
+
+    public void writeDevs()
+    {
+        Debug.Log("Count: " + devArray.Count);
+        int count = 0;
+        foreach(Dev dev in devArray)
+        {
+            Debug.Log("Element: " + ++count);
+            Debug.Log(dev.getState().ToString());
         }
     }
 }

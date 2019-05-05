@@ -114,16 +114,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d17b39cba13c7459e81153c36b3031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultTypeData: {fileID: 11400000, guid: ed57ef1c27b417b45ac8d3cd90b94438, type: 2}
   expBar: {fileID: 2369898064218428150}
-  baseProd: 2
-  baseProdFreq: 1
-  baseExpGain: 1
-  maxExp: 10
+  exp: 0
+  lvl: 1
+  type: Dev
   prodFreq: 0
   prod: 0
-  exp: 0
   expGain: 0
-  lvl: 1
 --- !u!1 &2118528741033897531
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +282,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2118528740094805956}
     m_Modifications:
+    - target: {fileID: 1455145249860746112, guid: 5beec9e1bc29a354188609d20bd0589b,
+        type: 3}
+      propertyPath: m_Name
+      value: BarraProgreso
+      objectReference: {fileID: 0}
     - target: {fileID: 2020519068817290843, guid: 5beec9e1bc29a354188609d20bd0589b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -354,11 +357,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.10611112
       objectReference: {fileID: 0}
-    - target: {fileID: 1455145249860746112, guid: 5beec9e1bc29a354188609d20bd0589b,
-        type: 3}
-      propertyPath: m_Name
-      value: BarraProgreso
-      objectReference: {fileID: 0}
     - target: {fileID: 7218036613528018942, guid: 5beec9e1bc29a354188609d20bd0589b,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -419,16 +417,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 6975408820299239026, guid: 5beec9e1bc29a354188609d20bd0589b,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6975408820299239026, guid: 5beec9e1bc29a354188609d20bd0589b,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8249357206062219023, guid: 5beec9e1bc29a354188609d20bd0589b,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -448,6 +436,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -3.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975408820299239026, guid: 5beec9e1bc29a354188609d20bd0589b,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6975408820299239026, guid: 5beec9e1bc29a354188609d20bd0589b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5beec9e1bc29a354188609d20bd0589b, type: 3}

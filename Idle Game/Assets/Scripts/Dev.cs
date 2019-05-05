@@ -5,38 +5,46 @@ using UnityEngine.UI;
 
 public class Dev : MonoBehaviour
 {
-    //All other dev prefabs will inherit from this script
-
+    
+    //References to other game elements
     GameObject controllerObj;
     GameController controller;
 
     GameObject origin;
 
     DevData typeData;
+    public DevData defaultTypeData;
 
     Image sprite;
+
     Text lvlText;
     public Slider expBar;
     Text expBarText;
 
-    //Variables that differentiate behaivour of different Devs
+    //Variables that differentiate Devs types
     float baseProd = 1;            //amount of progress it produces initially
     float baseProdFreq = 3f;       //times it generates production by second
     int baseExpGain = 1;           //Starting exp gain each time it generates progress
     float maxExp = 30;             //exp Necessary to level up
 
-    public float prodFreq;
-    float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
-    public float prod;                    //amount it currently produces 
+    //Variables that define this dev's state
     public float exp = 0;
-    public int expGain;                   //exp it's gaining right now
     public int lvl = 1;                   //current level
+    public string type = "Dev";           //hard coded for now     
+
+    //Variables defined in game
+    public float prodFreq;
+    public float prod;                    //amount it currently produces 
+    float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
+
+    //Dev "constants"
+    public int expGain;                   //exp it's gaining right now
     int maxLvl = 50;
     float counter = 0;                    //counts time to know when to produce
     private float increaseExp = 1.15f;
     private float textExp;
+    private string lvlString;
     private float increaseProd = 1.3f;
-
 
     void Start()
     {
@@ -47,9 +55,8 @@ public class Dev : MonoBehaviour
         lvlText = transform.Find("Nivel").GetComponent<Text>();
         expBarText = expBar.transform.Find("Valor").GetComponent<Text>();
 
-        lvlText.text = "Lvl: " + lvl;
+        lvlString = "Lvl: " + lvl;
         expBar.value = (float) exp / maxExp;
-
         expGain = baseExpGain;
 
         sprite.sprite = typeData.artwork;
@@ -57,12 +64,20 @@ public class Dev : MonoBehaviour
 
     public void startUp(DevData type)
     {
-        typeData = type;
+        if (type != null)
+        {
+            typeData = type;
+        }
+        else
+        {
+            typeData = defaultTypeData;
+        }
         prod = typeData.production;
         prodFreq = typeData.frequency;
         prodPeriod = 1 / prodFreq;
         maxExp = typeData.maxExp;
-
+        
+        
     }
 
     void Update()
@@ -74,6 +89,8 @@ public class Dev : MonoBehaviour
             if (lvl < maxLvl) { gainExp(expGain); }
             counter -= prodPeriod;
         }
+
+        lvlText.text = lvlString;
     }
 
     public void gainExp(int gain)
@@ -104,11 +121,11 @@ public class Dev : MonoBehaviour
         lvl++;
         if (lvl < maxLvl)
         {
-            lvlText.text = "Lvl: " + lvl;
+            lvlString = "Lvl: " + lvl;
         }
         else
         {
-            lvlText.text = "Lvl: MX";
+            lvlString = "Lvl: MX";
         }
         
         scaleExp();
@@ -123,5 +140,28 @@ public class Dev : MonoBehaviour
     void scaleProduction()
     {
         prod *= increaseProd;
+    }
+
+    //get dev state
+    public DevState getState()
+    {
+        DevState state = new DevState();
+        state.type = typeData.devName;
+        state.exp = exp;
+        state.lvl = lvl;
+        return state;
+    }
+
+    //set dev state
+    public void setState(DevState state)   //set ups a dev using all the state from a dev
+    {
+        // <-- set type here
+        startUp(typeData);
+
+        for(int i = 1; i < state.lvl; i++)
+        {
+            levelUp();
+        }
+        exp = state.exp;
     }
 }
