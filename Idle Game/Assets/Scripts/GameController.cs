@@ -98,24 +98,29 @@ public class GameController : MonoBehaviour
     public void BuyDev()
     {
         DevData dev = displayInfo.GiveDev();
-        int cost = dev.cost;
-
-        if (coins >= cost)
+        if (dev.devName != "Empty")
         {
-            Debug.Log("Bieen tienes dinero!");
-            if (spawnDev("Dev"))
+            if (coins >= dev.cost)
             {
-                coins -= cost;
-                Debug.Log("Amazon le enviara su pedido en brevas.");
+                Debug.Log("Bieen tienes dinero!");
+                if (spawnDev("Dev"))
+                {
+                    coins -= dev.cost;
+                    Debug.Log("Amazon le enviara su pedido en brevas.");
+                }
+                else
+                {
+                    Debug.Log("Amazon se niega a darte lo que le has pedido.");
+                }
             }
             else
             {
-                Debug.Log("Amazon se niega a darte lo que le has pedido.");
+                Debug.Log("pobreton!!");
             }
         }
         else
         {
-            Debug.Log("pobreton!!");
+            Debug.Log("No compras nada.");
         }
     }
 }
