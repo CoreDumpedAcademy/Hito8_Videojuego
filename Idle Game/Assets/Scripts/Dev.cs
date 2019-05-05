@@ -35,7 +35,7 @@ public class Dev : MonoBehaviour
     float counter = 0;                    //counts time to know when to produce
     private float increaseExp = 1.15f;
     private float textExp;
-    private float increaseProd = 1.1f;
+    private float increaseProd = 1.3f;
 
 
     void Start()

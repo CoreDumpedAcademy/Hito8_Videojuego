@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     public long coins;
     public long initialReward = 10;             //Coin reward for completing game
     public long reward;
-    private long rewardIncrease = 10;
+    private long rewardIncrease = 20;
 
     public float progress;                     //game progress points     
     private float max;                         //progress points to complete a game  
@@ -66,8 +66,17 @@ public class GameController : MonoBehaviour
     {
         coins += reward;
         gameCounter++;
+        ScaleFactorAdjust();
         scaleMaxProd();
         scaleReward();
+    }
+
+    private void ScaleFactorAdjust()
+    {
+        if (gameCounter % 8 == 0)
+        {
+            maxScaleFactor = maxScaleFactor / 1.2f;
+        }
     }
 
     private void scaleMaxProd()
