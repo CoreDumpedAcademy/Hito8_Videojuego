@@ -11,14 +11,16 @@ public class DevOptions : MonoBehaviour
     public Text devCost;
     public Dev dev;
     GameObject controllerObj;
-    GameController controller;
+    GameController gameController;
+    DevController devController;
 
     // Start is called before the first frame update
     void Start()
     {
         dev = gameObject.GetComponent<Dev>();
         controllerObj = GameObject.Find("GameController");
-        controller = controllerObj.GetComponent<GameController>();
+        gameController = controllerObj.GetComponent<GameController>();
+        devController = controllerObj.GetComponent<DevController>();
         optionsMenu.SetActive(false);
         sellMenu.SetActive(false);
         devCost.text = "Sell: " + dev.typeData.cost / 2;
@@ -37,7 +39,7 @@ public class DevOptions : MonoBehaviour
     }
     public void PressSell()
     {
-        if (controller.countDevs > 1) {
+        if (devController.devArray.Count > 1) {
             sellMenu.SetActive(true);
             optionsMenu.SetActive(false);
         }
@@ -53,8 +55,7 @@ public class DevOptions : MonoBehaviour
     {
         sellMenu.SetActive(false);
         Destroy(gameObject);
-        controller.coins += (dev.typeData.cost / 2);
-        controller.countDevs--;
+        gameController.coins += (dev.typeData.cost / 2);
     }
 
 }
