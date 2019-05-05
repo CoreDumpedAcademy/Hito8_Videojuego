@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     private float max;                         //progress points to complete a game  
 
     //in game "constants"
-    public long initialReward = 50;             //Coin reward for completing game
+    public long initialReward = 50;            //Coin reward for completing game
     private long rewardIncrease = 10;
     private float initialMax = 10;                
     private float maxScaleFactor = 0.5f;

@@ -13,10 +13,35 @@ public class DevController : MonoBehaviour
     string devPrefName = "Dev";
     string devTypePath = "DevTypes";                       //Path in the resources folder to the stored DevData scriptable objects
 
+    float counter;
+    float cleaningTime = 0.5f;                           //Time in seconds it will check if any reference in devArray is null
+
     void Start()
     {
         devParent = GameObject.Find("DevGrid").gameObject;
     }
+
+    private void Update() 
+    {
+        counter += Time.deltaTime;                  //Periodically checks if there are null references in devArray
+        if(counter >= cleaningTime)
+        {
+            cleanDevArray();
+            counter -= cleaningTime;
+        }
+    }
+
+    void cleanDevArray()
+    {
+        for(int i = 0; i < devArray.Count; i++)
+        {
+            if(devArray[i] == null)
+            {
+                devArray.RemoveAt(i);
+            }
+        }
+    }
+
     public Dev spawnDev(DevData devData)                 //takes the nave of the prefab as a parameter. Returns bool indicating if the operation was succesful
     {
         Dev devScript = null;
