@@ -12,7 +12,9 @@ public class Dev : MonoBehaviour
 
     GameObject origin;
 
-    Sprite sprite;
+    DevData typeData;
+
+    Image sprite;
     Text lvlText;
     public Slider expBar;
     Text expBarText;
@@ -41,16 +43,26 @@ public class Dev : MonoBehaviour
         controllerObj = GameObject.Find("GameController");
         controller = controllerObj.GetComponent<GameController>();
 
-        sprite = transform.Find("Sprite").GetComponent<Sprite>();
+        sprite = transform.Find("Sprite").GetComponent<Image>();
         lvlText = transform.Find("Nivel").GetComponent<Text>();
         expBarText = expBar.transform.Find("Valor").GetComponent<Text>();
 
         lvlText.text = "Lvl: " + lvl;
         expBar.value = (float) exp / maxExp;
 
-        prod = baseProd;
-        prodPeriod = 1 / baseProdFreq;
         expGain = baseExpGain;
+
+        sprite.sprite = typeData.artwork;
+    }
+
+    public void startUp(DevData type)
+    {
+        typeData = type;
+        prod = typeData.production;
+        prodFreq = typeData.frequency;
+        prodPeriod = 1 / prodFreq;
+        maxExp = typeData.maxExp;
+
     }
 
     void Update()

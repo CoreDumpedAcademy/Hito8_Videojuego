@@ -10,32 +10,34 @@ public class DevController : MonoBehaviour
 
     public int maxDevs = 8;                                      //maximun amount of devs allowed
 
+    string devPrefName = "Dev";
 
     void Start()
     {
         devParent = GameObject.Find("DevGrid").gameObject;
     }
 
-    public bool spawnDev(string dev)                 //takes the nave of the prefab as a parameter. Returns bool indicating if the operation was succesful
+    public Dev spawnDev(DevData devData)                 //takes the nave of the prefab as a parameter. Returns bool indicating if the operation was succesful
     {
-        bool res = false;
+        Dev devScript = null;
         if(devArray.Count < maxDevs)
         {
-            GameObject devObj = getDev(dev);
-            devObj = (GameObject)Instantiate(devObj);
+            GameObject devPrefab = (GameObject)Resources.Load(devPrefName);
+            GameObject devObj = (GameObject)Instantiate(devPrefab);
             devObj.transform.SetParent(devParent.transform);
-            devArray.Add(devObj);
-            res = true;
+            devScript = devObj.GetComponent<Dev>();
+            devScript.startUp(devData);
+            devArray.Add(devObj);           
         }
-        return res;
+        return devScript;
     }
-
+    /*
     //Provisionally loading prefabs from Resources
     GameObject getDev(string dev)
     {
         return (GameObject)Resources.Load(dev);
     }
-
+    */
     void positionDev(GameObject dev)
     {
         Transform origin = dev.transform.Find("Origin");
