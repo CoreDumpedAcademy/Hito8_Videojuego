@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
-    DisplayInfo displayInfo;
+    public DisplayInfo displayInfo;
 
     public Text Coins;
     public Slider GameProgress;
