@@ -25,5 +25,11 @@ public class DisplayInfo : MonoBehaviour
         cost.text = devData.cost.ToString() + " C";
         nameDev.text = devData.devName;
         sprite.sprite = devData.artwork;
+        devDataShow = devData;
+    }
+    
+    public DevData GiveDev()
+    {
+        return devDataShow;
     }
 }

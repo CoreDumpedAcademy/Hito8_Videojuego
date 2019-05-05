@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
+    DisplayInfo displayInfo;
 
     public Text Coins;
     public Slider GameProgress;
 
     public long coins;
-    public long cost = 150;
     public long initialReward = 10;             //Coin reward for completing game
     public long reward;
     private long rewardIncrease = 10;
@@ -97,22 +97,30 @@ public class GameController : MonoBehaviour
 
     public void BuyDev()
     {
-        if (coins >= cost)
+        DevData dev = displayInfo.GiveDev();
+        if (dev.devName != "Empty")
         {
-            Debug.Log("Bieen tienes dinero!");
-            if (spawnDev("Dev"))   
+            if (coins >= dev.cost)
             {
-                coins -= cost;
-                Debug.Log("Amazon le enviara su pedido en brevas.");
+                Debug.Log("Bieen tienes dinero!");
+                if (spawnDev(dev))
+                {
+                    coins -= dev.cost;
+                    Debug.Log("Amazon le enviara su pedido en brevas.");
+                }
+                else
+                {
+                    Debug.Log("Amazon se niega a darte lo que le has pedido.");
+                }
             }
             else
             {
-                Debug.Log("Amazon se niega a darte lo que le has pedido.");
+                Debug.Log("pobreton!!");
             }
         }
         else
         {
-            Debug.Log("pobreton!!");
+            Debug.Log("No compras nada.");
         }
     }
 }
