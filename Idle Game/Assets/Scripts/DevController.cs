@@ -26,7 +26,7 @@ public class DevController : MonoBehaviour
             GameObject devObj = (GameObject)Instantiate(devPrefab);
             devObj.transform.SetParent(devParent.transform);
             devScript = devObj.GetComponent<Dev>();
-            devScript.assignType(devData);
+            devScript.startUp(devData);
             devArray.Add(devObj);           
         }
         return devScript;
