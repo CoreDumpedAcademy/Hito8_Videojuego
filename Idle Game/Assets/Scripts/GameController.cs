@@ -74,11 +74,20 @@ public class GameController : MonoBehaviour
     {
         coins += reward;
         gameCounter++;
+        ScaleFactorAdjust();
         scaleMaxProd();
         if(gameCounter % rewardThreshold == 0)
         {
             scaleReward();
         }      
+    }
+
+    private void ScaleFactorAdjust()
+    {
+        if (gameCounter % 8 == 0)
+        {
+            maxScaleFactor = maxScaleFactor / 1.2f;
+        }
     }
 
     private void scaleMaxProd()
