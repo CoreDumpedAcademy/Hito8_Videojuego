@@ -7,6 +7,7 @@ public class OptionsMenu : MonoBehaviour
 {
     public bool status;
     public GameObject Menu;
+    public GameController gameController;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +20,17 @@ public class OptionsMenu : MonoBehaviour
     public void Guardar ()
     {
         Debug.Log("Guardando partida");
+        gameController.saveGame();
     }
 
     public void SalirGuardar()
     {
         Guardar();
+        SceneManager.LoadScene("InitialScene");
+    }
+
+    public void Salir()
+    {
         SceneManager.LoadScene("InitialScene");
     }
 

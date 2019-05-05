@@ -37,7 +37,10 @@ public class GameController : MonoBehaviour
         reward = initialReward;
         coins = 150;
         progress = 0;
-        gameCounter = 0;
+        gameCounter = 0; if (LoadState.LoadSituation)
+        {
+            loadGame();
+        }
     }
     void Update()
     {
