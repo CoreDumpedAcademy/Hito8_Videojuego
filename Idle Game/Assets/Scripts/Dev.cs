@@ -12,7 +12,7 @@ public class Dev : MonoBehaviour
 
     GameObject origin;
 
-    DevData typeData;
+    public DevData typeData;
 
     Image sprite;
     Text lvlText;
