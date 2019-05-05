@@ -42,14 +42,9 @@ public class Dev : MonoBehaviour
     int maxLvl = 50;
     float counter = 0;                    //counts time to know when to produce
     private float increaseExp = 1.15f;
-<<<<<<< HEAD
-    private float increaseProd = 1.1f;
-    private float textExp;
-    private string lvlString;
-=======
     private float textExp;
     private float increaseProd = 1.3f;
->>>>>>> 942a20b546565abceec6da7df2df7896de2e528f
+
 
 
     void Start()
