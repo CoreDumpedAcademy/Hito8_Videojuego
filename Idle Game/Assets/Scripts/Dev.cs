@@ -52,7 +52,7 @@ public class Dev : MonoBehaviour
         lvlString = "Lvl: " + lvl;
         expBar.value = (float) exp / maxExp;
 
-        setData();
+        setState();
     }
 
     void Update()
@@ -117,32 +117,32 @@ public class Dev : MonoBehaviour
         prod *= increaseProd;
     }
 
-    //get dev data
-    public DevData getData()
+    //get dev state
+    public DevState getState()
     {
-        DevData data = new DevData();
-        data.type = type;
-        data.exp = exp;
-        data.lvl = lvl;
-        return data;
+        DevState state = new DevState();
+        state.type = type;
+        state.exp = exp;
+        state.lvl = lvl;
+        return state;
     }
 
-    //set dev data
-    public void setData()               //gives value to in-game variables based on the dev type 
+    //set dev state
+    public void setState()               //gives value to in-game variables based on the dev type 
     {
         prod = baseProd;
         prodPeriod = 1 / baseProdFreq;
         expGain = baseExpGain;
     }
-    public void setData(DevData data)   //set ups a dev using all the data from a dev
+    public void setState(DevState state)   //set ups a dev using all the state from a dev
     {
         // <-- set type here
-        setData();
+        setState();
 
-        for(int i = 1; i < data.lvl; i++)
+        for(int i = 1; i < state.lvl; i++)
         {
             levelUp();
         }
-        exp = data.exp;
+        exp = state.exp;
     }
 }

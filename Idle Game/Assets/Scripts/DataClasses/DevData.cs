@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class DevData
+public class DevState
 {
     public string type;
     public int lvl;
     public float exp;
 
-    public DevData()
+    public DevState()
     {
         lvl = 1;
         exp = 0;

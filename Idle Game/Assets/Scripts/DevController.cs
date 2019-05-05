@@ -25,7 +25,7 @@ public class DevController : MonoBehaviour
             devObj = (GameObject)Instantiate(devObj);
             devObj.transform.SetParent(devParent.transform);
             devScript = devObj.GetComponent<Dev>();
-            //Debug.Log(devScript.getData().ToString());
+            //Debug.Log(devScript.getState().ToString());
             devArray.Add(devScript);
         }
         return devScript;
@@ -37,20 +37,20 @@ public class DevController : MonoBehaviour
         return (GameObject)Resources.Load(dev);
     }
 
-    //To save data
-    public List<DevData> getDevData()
+    //To save state
+    public List<DevState> getDevState()
     {
-        List<DevData> devDataArray = new List<DevData>();
+        List<DevState> devStateArray = new List<DevState>();
         int count = 0;
         foreach(Dev dev in devArray)
         {
             Debug.Log(++count);
-            Debug.Log(dev.getData().ToString());
-            devDataArray.Add(dev.getData());
+            Debug.Log(dev.getState().ToString());
+            devStateArray.Add(dev.getState());
         }
-        return devDataArray;
+        return devStateArray;
     }
-    //To load data
+    //To load state
     public void clearDevs()
     {
         foreach(Dev dev in devArray)
@@ -61,15 +61,15 @@ public class DevController : MonoBehaviour
         writeDevs();
     }
 
-    public void recreateDevs(List<DevData> devDataArray)
+    public void recreateDevs(List<DevState> devStateArray)
     {
         int count = 0;
-        foreach (DevData dev in devDataArray)
+        foreach (DevState dev in devStateArray)
         {
             //Debug.Log(++count);
             //Debug.Log(dev.ToString());
             Dev devScript = spawnDev(dev.type);
-            devScript.setData(dev);
+            devScript.setState(dev);
         }
     }
 
@@ -80,7 +80,7 @@ public class DevController : MonoBehaviour
         foreach(Dev dev in devArray)
         {
             Debug.Log("Element: " + ++count);
-            Debug.Log(dev.getData().ToString());
+            Debug.Log(dev.getState().ToString());
         }
     }
 }

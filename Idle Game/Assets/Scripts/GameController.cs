@@ -138,7 +138,7 @@ public class GameController : MonoBehaviour
         save.coins = coins;
         save.progress = progress;
         save.gameCounter = gameCounter;
-        save.devDataArray = devFunctions.getDevData();
+        save.devStateArray = devFunctions.getDevState();
         //get dev data
 
         return save;
@@ -161,7 +161,7 @@ public class GameController : MonoBehaviour
         gameCounter = save.gameCounter;
 
         devFunctions.clearDevs();
-        devFunctions.recreateDevs(save.devDataArray);
+        devFunctions.recreateDevs(save.devStateArray);
 
         //Simulate in-game processes
         simulateInGameProgress();
