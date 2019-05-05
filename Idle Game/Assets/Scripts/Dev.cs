@@ -12,6 +12,8 @@ public class Dev : MonoBehaviour
 
     GameObject origin;
 
+    DevData typeData;
+
     Sprite sprite;
     Text lvlText;
     public Slider expBar;
@@ -51,6 +53,11 @@ public class Dev : MonoBehaviour
         prod = baseProd;
         prodPeriod = 1 / baseProdFreq;
         expGain = baseExpGain;
+    }
+
+    public void assignType(DevData type)
+    {
+        typeData = type;
     }
 
     void Update()

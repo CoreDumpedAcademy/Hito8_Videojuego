@@ -90,9 +90,9 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public bool spawnDev(string dev)              //return bool indicating if the operation was succesful 
+    public bool spawnDev(DevData dev)              //return bool indicating if the operation was succesful 
     {
-        return devFunctions.spawnDev(dev);
+        return devFunctions.spawnDev(dev) != null;
     }
 
     public void BuyDev()
@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour
         if (coins >= cost)
         {
             Debug.Log("Bieen tienes dinero!");
-            if (spawnDev("Dev"))
+            if (spawnDev("Dev"))   
             {
                 coins -= cost;
                 Debug.Log("Amazon le enviara su pedido en brevas.");
