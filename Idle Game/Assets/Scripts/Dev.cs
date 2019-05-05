@@ -9,7 +9,13 @@ public class Dev : MonoBehaviour
     //References to other game elements
     GameObject controllerObj;
     GameController controller;
-    Sprite sprite;
+
+    GameObject origin;
+
+    DevData typeData;
+
+    Image sprite;
+
     Text lvlText;
     public Slider expBar;
     Text expBarText;
@@ -45,14 +51,24 @@ public class Dev : MonoBehaviour
         controllerObj = GameObject.Find("GameController");
         controller = controllerObj.GetComponent<GameController>();
 
-        sprite = transform.Find("Sprite").GetComponent<Sprite>();
+        sprite = transform.Find("Sprite").GetComponent<Image>();
         lvlText = transform.Find("Nivel").GetComponent<Text>();
         expBarText = expBar.transform.Find("Valor").GetComponent<Text>();
 
         lvlString = "Lvl: " + lvl;
         expBar.value = (float) exp / maxExp;
+        expGain = baseExpGain;
 
-        setState();
+        sprite.sprite = typeData.artwork;
+    }
+
+    public void startUp(DevData type)
+    {
+        typeData = type;
+        prod = typeData.production;
+        prodFreq = typeData.frequency;
+        prodPeriod = 1 / prodFreq;
+        maxExp = typeData.maxExp;
     }
 
     void Update()
@@ -121,23 +137,17 @@ public class Dev : MonoBehaviour
     public DevState getState()
     {
         DevState state = new DevState();
-        state.type = type;
+        state.type = typeData.devName;
         state.exp = exp;
         state.lvl = lvl;
         return state;
     }
 
     //set dev state
-    public void setState()               //gives value to in-game variables based on the dev type 
-    {
-        prod = baseProd;
-        prodPeriod = 1 / baseProdFreq;
-        expGain = baseExpGain;
-    }
     public void setState(DevState state)   //set ups a dev using all the state from a dev
     {
         // <-- set type here
-        setState();
+        startUp(typeData);
 
         for(int i = 1; i < state.lvl; i++)
         {

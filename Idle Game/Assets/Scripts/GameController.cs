@@ -6,14 +6,15 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
+    public DisplayInfo displayInfo;
 
     public Text Coins;
     public Slider GameProgress;
     
     //Variables in save data
     public long coins;
+    public float progress;                     //game progress points    
     public int gameCounter;                    //How many games have been completed
-    public float progress;                     //game progress points     
 
     //Calculated in game
     public long reward;
@@ -97,30 +98,38 @@ public class GameController : MonoBehaviour
        reward += rewardIncrease;
     }
 
-    //Anythin related to Devs
-    public bool spawnDev(string dev)              //return bool indicating if the operation was succesful 
+
+    public bool spawnDev(DevData dev)              //return bool indicating if the operation was succesful 
     {
         return devFunctions.spawnDev(dev) != null;
     }
 
     public void BuyDev()
     {
-        if (coins >= cost)
+        DevData dev = displayInfo.GiveDev();
+        if (dev.devName != "Empty")
         {
-            Debug.Log("Bieen tienes dinero!");
-            if (spawnDev("Dev"))
+            if (coins >= dev.cost)
             {
-                coins -= cost;
-                Debug.Log("Amazon le enviara su pedido en brevas.");
+                Debug.Log("Bieen tienes dinero!");
+                if (spawnDev(dev))
+                {
+                    coins -= dev.cost;
+                    Debug.Log("Amazon le enviara su pedido en brevas.");
+                }
+                else
+                {
+                    Debug.Log("Amazon se niega a darte lo que le has pedido.");
+                }
             }
             else
             {
-                Debug.Log("Amazon se niega a darte lo que le has pedido.");
+                Debug.Log("pobreton!!");
             }
         }
         else
         {
-            Debug.Log("pobreton!!");
+            Debug.Log("No compras nada.");
         }
     }
 
