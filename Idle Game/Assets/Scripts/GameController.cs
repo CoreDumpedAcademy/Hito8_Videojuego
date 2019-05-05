@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
     public DisplayInfo displayInfo;
 
+    public int countDevs;
     public Text Coins;
     public Slider GameProgress;
 
@@ -28,6 +29,7 @@ public class GameController : MonoBehaviour
     {
         devFunctions = gameObject.GetComponent<DevController>();
 
+        countDevs = 0;
         max = initialMax;
         reward = initialReward;
         coins = 150;
@@ -106,6 +108,7 @@ public class GameController : MonoBehaviour
                 if (spawnDev(dev))
                 {
                     coins -= dev.cost;
+                    countDevs++;
                     Debug.Log("Amazon le enviara su pedido en brevas.");
                 }
                 else

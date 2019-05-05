@@ -37,8 +37,10 @@ public class DevOptions : MonoBehaviour
     }
     public void PressSell()
     {
-        sellMenu.SetActive(true);
-        optionsMenu.SetActive(false);
+        if (controller.countDevs > 1) {
+            sellMenu.SetActive(true);
+            optionsMenu.SetActive(false);
+        }
     }
 
     public void returnToPanel()
@@ -49,10 +51,10 @@ public class DevOptions : MonoBehaviour
 
     public void SellDev()
     {
-
         sellMenu.SetActive(false);
         Destroy(gameObject);
         controller.coins += (dev.typeData.cost / 2);
+        controller.countDevs--;
     }
 
 }
