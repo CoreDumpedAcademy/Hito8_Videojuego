@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
+    DisplayInfo displayInfo;
 
     public Text Coins;
     public Slider GameProgress;
 
     public long coins;
-    public long cost = 150;
     public long initialReward = 10;             //Coin reward for completing game
     public long reward;
     private long rewardIncrease = 10;
@@ -97,6 +97,9 @@ public class GameController : MonoBehaviour
 
     public void BuyDev()
     {
+        DevData dev = displayInfo.GiveDev();
+        int cost = dev.cost;
+
         if (coins >= cost)
         {
             Debug.Log("Bieen tienes dinero!");
