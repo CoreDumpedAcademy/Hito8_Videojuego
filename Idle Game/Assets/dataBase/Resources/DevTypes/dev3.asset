@@ -15,6 +15,6 @@ MonoBehaviour:
   artwork: {fileID: 9100000, guid: b76486c8897fb0249a8e2022ef52f528, type: 2}
   devName: Matado
   cost: 300
-  production: 1.5
-  frequency: 5
+  production: 2
+  frequency: 7
   maxExp: 40

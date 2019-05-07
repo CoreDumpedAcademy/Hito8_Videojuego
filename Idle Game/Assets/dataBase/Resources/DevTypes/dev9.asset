@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17103c897abfe5345b277734139989d5, type: 3}
-  m_Name: dev5
+  m_Name: dev9
   m_EditorClassIdentifier: 
-  artwork: {fileID: 9100000, guid: 91d75700e63e96647bd24dcbc2bd0e28, type: 2}
-  devName: Planta
-  cost: 500
-  production: 6
-  frequency: 10
-  maxExp: 50
+  artwork: {fileID: 9100000, guid: 5b80a1cb2e7c0a34a959b999bced4386, type: 2}
+  devName: Slime
+  cost: 900
+  production: 13
+  frequency: 21
+  maxExp: 80

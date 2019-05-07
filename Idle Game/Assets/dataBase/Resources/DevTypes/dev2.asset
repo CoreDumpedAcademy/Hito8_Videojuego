@@ -15,6 +15,6 @@ MonoBehaviour:
   artwork: {fileID: 9100000, guid: 28b70569e5a021e4a8b01ab37ca67351, type: 2}
   devName: Empleado
   cost: 200
-  production: 2.5
-  frequency: 3
+  production: 4
+  frequency: 5
   maxExp: 30

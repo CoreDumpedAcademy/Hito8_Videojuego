@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17103c897abfe5345b277734139989d5, type: 3}
   m_Name: dev7
   m_EditorClassIdentifier: 
-  artwork: {fileID: 0}
+  artwork: {fileID: 9100000, guid: 18d6b3b960242ce45a672459cc973710, type: 2}
   devName: "Mi\xF1ano"
   cost: 700
-  production: 5
-  frequency: 10
+  production: 9
+  frequency: 17
   maxExp: 70

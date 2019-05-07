@@ -15,6 +15,6 @@ MonoBehaviour:
   artwork: {fileID: 9100000, guid: 812061b28fdafce41b0534617ec6aa9f, type: 2}
   devName: Luis
   cost: 400
-  production: 2.5
-  frequency: 5
+  production: 4
+  frequency: 9
   maxExp: 50
