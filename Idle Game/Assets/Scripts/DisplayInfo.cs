@@ -10,21 +10,21 @@ public class DisplayInfo : MonoBehaviour
 
     public TextMeshProUGUI nameDev;
     public TextMeshProUGUI cost;
-    public Image sprite;
+    public Animator sprite;
 
     // Start is called before the first frame update
     void Start()
     {
         cost.text = devDataShow.cost.ToString() + " C";
         nameDev.text = devDataShow.devName;
-        sprite.sprite = devDataShow.artwork;
+        sprite.runtimeAnimatorController = devDataShow.artwork;
     }
 
     public void LoadDev(DevData devData)
     {
         cost.text = devData.cost.ToString() + " C";
         nameDev.text = devData.devName;
-        sprite.sprite = devData.artwork;
+        sprite.runtimeAnimatorController = devData.artwork;
         devDataShow = devData;
     }
     

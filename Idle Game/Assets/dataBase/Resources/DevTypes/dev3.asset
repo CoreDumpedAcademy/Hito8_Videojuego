@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17103c897abfe5345b277734139989d5, type: 3}
-  m_Name: Matado
+  m_Name: dev3
   m_EditorClassIdentifier: 
-  artwork: {fileID: 21300000, guid: 1121aa4a01843b24db4ee67f56ffa170, type: 3}
+  artwork: {fileID: 9100000, guid: b76486c8897fb0249a8e2022ef52f528, type: 2}
   devName: Matado
   cost: 300
   production: 1.5

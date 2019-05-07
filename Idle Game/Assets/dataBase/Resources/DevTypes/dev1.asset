@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17103c897abfe5345b277734139989d5, type: 3}
-  m_Name: Empleado
+  m_Name: dev1
   m_EditorClassIdentifier: 
-  artwork: {fileID: 21300000, guid: 31ef067541047774ca02b48a0971639c, type: 3}
-  devName: Empleado
-  cost: 200
-  production: 2.5
+  artwork: {fileID: 9100000, guid: 568a2aca7bc58b147a6e3318bd164449, type: 2}
+  devName: Becario
+  cost: 100
+  production: 1
   frequency: 3
   maxExp: 30

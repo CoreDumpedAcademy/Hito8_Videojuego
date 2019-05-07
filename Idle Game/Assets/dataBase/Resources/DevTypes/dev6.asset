@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17103c897abfe5345b277734139989d5, type: 3}
-  m_Name: Planta
+  m_Name: dev6
   m_EditorClassIdentifier: 
-  artwork: {fileID: 21300000, guid: 6300b6a48542f2848ba92895c9b0be8a, type: 3}
-  devName: Planta
-  cost: 500
+  artwork: {fileID: 0}
+  devName: Tox
+  cost: 600
   production: 3.5
-  frequency: 5
-  maxExp: 50
+  frequency: 10
+  maxExp: 60

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DevData : ScriptableObject
 {
-    public Sprite artwork;
+    public RuntimeAnimatorController artwork;
 
     public string devName;
     public int cost;

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17103c897abfe5345b277734139989d5, type: 3}
-  m_Name: "Mi\xF1ano"
+  m_Name: dev7
   m_EditorClassIdentifier: 
   artwork: {fileID: 0}
   devName: "Mi\xF1ano"
