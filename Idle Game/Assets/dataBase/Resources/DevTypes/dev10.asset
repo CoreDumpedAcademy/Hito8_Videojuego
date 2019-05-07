@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17103c897abfe5345b277734139989d5, type: 3}
-  m_Name: Default
+  m_Name: dev10
   m_EditorClassIdentifier: 
-  artwork: {fileID: 9100000, guid: 5ee8eb399c9be4b4cb358c12ad43639b, type: 2}
-  devName: Empty
-  cost: 0
-  production: 0
-  frequency: 1
-  maxExp: 0
+  artwork: {fileID: 9100000, guid: 0df379b8d81e42748ac2d9e27e14b8fc, type: 2}
+  devName: Pacaman
+  cost: 1000
+  production: 15
+  frequency: 23
+  maxExp: 80
