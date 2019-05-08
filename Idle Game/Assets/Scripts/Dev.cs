@@ -146,7 +146,7 @@ public class Dev : MonoBehaviour
     public DevState getState()
     {
         DevState state = new DevState();
-        state.type = typeData.devName;
+        state.type = typeData.name;
         state.exp = exp;
         state.lvl = lvl;
         return state;
