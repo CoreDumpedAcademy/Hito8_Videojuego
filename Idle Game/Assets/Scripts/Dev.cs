@@ -46,7 +46,24 @@ public class Dev : MonoBehaviour
     private string lvlString;
     private float increaseProd = 1.3f;
 
+    //In game state
+    public bool active = false;
+
     void Start()
+    {
+        if (!active)                                  //If Dev is not set up, set it up
+        {
+            if (typeData == null)                      //If no type is assigned, give it the default
+            {
+                typeSetUp(defaultTypeData);
+            }
+            baseSetUp();
+
+            active = true;
+        } 
+    }
+
+    void baseSetUp()
     {
         controllerObj = GameObject.Find("GameController");
         controller = controllerObj.GetComponent<GameController>();
@@ -56,13 +73,13 @@ public class Dev : MonoBehaviour
         expBarText = expBar.transform.Find("Valor").GetComponent<Text>();
 
         lvlString = "Lvl: " + lvl;
-        expBar.value = (float) exp / maxExp;
+        expBar.value = (float)exp / maxExp;
         expGain = baseExpGain;
 
         sprite.sprite = typeData.artwork;
     }
 
-    public void startUp(DevData type)
+    void typeSetUp(DevData type)
     {
         if (type != null)
         {
@@ -76,13 +93,22 @@ public class Dev : MonoBehaviour
         prodFreq = typeData.frequency;
         prodPeriod = 1 / prodFreq;
         maxExp = typeData.maxExp;
-        
-        
+    }
+
+    //Used to set up dev before time
+    public void startUp(DevData type)
+    {
+        if (!active)
+        {
+            typeSetUp(type);
+            baseSetUp();
+            active = true;
+        }
     }
 
     void Update()
     {
-        counter += Time.deltaTime;
+        if (active) counter += Time.deltaTime;
         if (counter >= prodPeriod)
         {
             controller.addProgress(prod);
