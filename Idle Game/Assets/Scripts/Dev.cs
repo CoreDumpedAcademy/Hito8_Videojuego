@@ -35,7 +35,7 @@ public class Dev : MonoBehaviour
     //Variables defined in game
     public float prodFreq;
     public float prod;                    //amount it currently produces 
-    float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
+    public float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
 
     //Dev "constants"
     public int expGain;                   //exp it's gaining right now
@@ -111,13 +111,19 @@ public class Dev : MonoBehaviour
         if (active) counter += Time.deltaTime;
         if (counter >= prodPeriod)
         {
-            controller.addProgress(prod);
-            if (lvl < maxLvl) { gainExp(expGain); }
+            makeProgress();
             counter -= prodPeriod;
         }
 
         lvlText.text = lvlString;
     }
+
+    public void makeProgress()
+    {
+        controller.addProgress(prod);
+        if (lvl < maxLvl) { gainExp(expGain); }
+    }
+
 
     public void gainExp(int gain)
     {
@@ -182,7 +188,7 @@ public class Dev : MonoBehaviour
     public void setState(DevState state)   //set ups a dev using all the state from a dev
     {
         // <-- set type here
-        startUp(typeData);
+        //startUp(typeData);
 
         for(int i = 1; i < state.lvl; i++)
         {

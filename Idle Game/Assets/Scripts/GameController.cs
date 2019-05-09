@@ -182,14 +182,27 @@ public class GameController : MonoBehaviour
         coins = save.coins;
         progress = save.progress;
         gameCounter = save.gameCounter;
-
+        
         devFunctions.clearDevs();
         devFunctions.recreateDevs(save.devStateArray);
 
         //Simulate in-game processes
         simulateInGameProgress();
+        TimeSpan span = sinceLastLogOut(save.lastLogOut);
+        devFunctions.simulateOffLineWork(span);
     }
 
+    TimeSpan sinceLastLogOut(DateTime logOut)
+    {
+        TimeSpan span = TimeSpan.Zero;
+        DateTime now = DateTime.Now;
+        int compare = DateTime.Compare(logOut, now);
+        if (compare < 0)
+        {
+            span = now - logOut;
+        }
+        return span;
+    }
     void simulateInGameProgress()
     {
         for (int i = 0; i < gameCounter; i++)

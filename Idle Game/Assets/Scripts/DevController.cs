@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -109,6 +110,23 @@ public class DevController : MonoBehaviour
         Debug.Log(path);
         devType = Resources.Load<DevData>(path);
         return devType;
+    }
+
+    public void simulateOffLineWork(TimeSpan span)
+    {
+        double seconds = span.TotalSeconds;
+        foreach (Dev dev in devArray)
+        {
+            int counter = 0;
+            double simTime = 0;
+            while (simTime < seconds)
+            {
+                dev.makeProgress();
+                simTime += dev.prodPeriod;
+                counter++;
+            }
+            Debug.Log("Veces producidas para " + dev.name + ": " + counter);
+        }
     }
 
     public void writeDevs()
