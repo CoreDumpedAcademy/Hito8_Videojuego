@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -160,6 +161,7 @@ public class GameController : MonoBehaviour
         save.progress = progress;
         save.gameCounter = gameCounter;
         save.devStateArray = devFunctions.getDevState();
+        save.lastLogOut = DateTime.Now;
         //get dev data
 
         return save;
