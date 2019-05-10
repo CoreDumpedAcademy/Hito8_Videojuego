@@ -32,6 +32,14 @@ public class DevController : MonoBehaviour
         }
     }
 
+    public void elapsedTime(double timeCounter)
+    {
+        foreach(Dev dev in devArray)
+        {
+            dev.elapsedTime(timeCounter);
+        }
+    }
+
     void cleanDevArray()
     {
         for(int i = 0; i < devArray.Count; i++)
@@ -121,7 +129,7 @@ public class DevController : MonoBehaviour
             double simTime = 0;
             while (simTime < seconds)
             {
-                dev.makeProgress();
+                dev.inGameProgressStep();
                 simTime += dev.prodPeriod;
                 counter++;
             }

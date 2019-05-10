@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    CentralTimer timer;
     DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
     public DisplayInfo displayInfo;
 
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        timer = GetComponent<CentralTimer>();
         devFunctions = gameObject.GetComponent<DevController>();
 
         max = initialMax;
@@ -188,21 +190,10 @@ public class GameController : MonoBehaviour
 
         //Simulate in-game processes
         simulateInGameProgress();
-        TimeSpan span = sinceLastLogOut(save.lastLogOut);
-        devFunctions.simulateOffLineWork(span);
+        timer.simulateOffLineProgress(save.lastLogOut);
     }
 
-    TimeSpan sinceLastLogOut(DateTime logOut)
-    {
-        TimeSpan span = TimeSpan.Zero;
-        DateTime now = DateTime.Now;
-        int compare = DateTime.Compare(logOut, now);
-        if (compare < 0)
-        {
-            span = now - logOut;
-        }
-        return span;
-    }
+
     void simulateInGameProgress()
     {
         for (int i = 0; i < gameCounter; i++)

@@ -40,7 +40,7 @@ public class Dev : MonoBehaviour
     //Dev "constants"
     public int expGain;                   //exp it's gaining right now
     int maxLvl = 50;
-    float counter = 0;                    //counts time to know when to produce
+    double localCounter = 0;                    //counts time to know when to produce
     private float increaseExp = 1.15f;
     private float textExp;
     private string lvlString;
@@ -108,17 +108,23 @@ public class Dev : MonoBehaviour
 
     void Update()
     {
-        if (active) counter += Time.deltaTime;
-        if (counter >= prodPeriod)
-        {
-            makeProgress();
-            counter -= prodPeriod;
-        }
-
         lvlText.text = lvlString;
     }
 
-    public void makeProgress()
+    public void elapsedTime(double timeCounter)
+    {
+        if(active)
+        {
+            localCounter += timeCounter;
+
+            while(localCounter >= prodPeriod)
+            {
+                inGameProgressStep();
+                localCounter -= prodPeriod;
+            }
+        }
+    }
+    public void inGameProgressStep()
     {
         controller.addProgress(prod);
         if (lvl < maxLvl) { gainExp(expGain); }
