@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,7 +49,7 @@ public class Dev : MonoBehaviour
 
     //In game state
     public bool active = false;
-
+    public int producedInSession = 0;
     void Start()
     {
         if (!active)                                  //If Dev is not set up, set it up
@@ -111,23 +112,26 @@ public class Dev : MonoBehaviour
         lvlText.text = lvlString;
     }
 
-    public void elapsedTime(double timeCounter)
+    public int elapsedTime(double timeCounter)             //Returns the amount of times produced in the elapsed time
     {
+        int count = 0;
         if(active)
         {
             localCounter += timeCounter;
-
             while(localCounter >= prodPeriod)
             {
                 inGameProgressStep();
                 localCounter -= prodPeriod;
+                count++;
             }
         }
+        return count;
     }
     public void inGameProgressStep()
     {
         controller.addProgress(prod);
         if (lvl < maxLvl) { gainExp(expGain); }
+        producedInSession++;
     }
 
 
@@ -201,5 +205,11 @@ public class Dev : MonoBehaviour
             levelUp();
         }
         exp = state.exp;
+    }
+
+    public int correctProduction(int count, double seconds)            //Return how far production deviates from expected productions
+    {
+        int expectedCount = (int)Math.Floor( seconds * prodFreq);
+        return count - expectedCount;
     }
 }

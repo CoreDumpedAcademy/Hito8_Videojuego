@@ -29,7 +29,9 @@ public class GameController : MonoBehaviour
     private float maxScaleFactor = 0.5f;
     int rewardThreshold = 5;
 
+    public int sessionTimesProduced = 0;
     public long cost = 150;
+
 
     void Start()
     {
@@ -61,17 +63,17 @@ public class GameController : MonoBehaviour
     public void addProgress(float prog)
     {
         progress += prog;
+        sessionTimesProduced++;
+
+        while (progress > max)
+        {
+            completeGame();
+        }
     }
 
     private void actualizarSlider(float mx, float prog)
     {
         float porcentaje = prog / mx;
-        while (porcentaje >= 1)
-        {
-            porcentaje -= 1;
-            progress = porcentaje;              //Variable stored, not the parameter
-            completeGame();
-        }
         GameProgress.value = porcentaje;
     }
 
@@ -80,12 +82,22 @@ public class GameController : MonoBehaviour
     {
         coins += reward;
         gameCounter++;
+
+        string debugMessageInit = "Completed game nº: " + gameCounter + " reached progress: " + progress + "/" + max;
+
+        progress -= max;
+        if (progress < 0) progress = 0;
+
         ScaleFactorAdjust();
         scaleMaxProd();
         if(gameCounter % rewardThreshold == 0)
         {
             scaleReward();
-        }      
+        }
+
+        string debugMessageFin = "New progress: " + progress + "/" + max + " Reward: " + reward;
+
+        //Debug.Log(debugMessageInit + ";" +debugMessageFin);
     }
 
     private void ScaleFactorAdjust()

@@ -32,6 +32,7 @@ public class CentralTimer : MonoBehaviour
     {
         TimeSpan sinceLogOut = getSpanSinceLogOut(logOut);
         double timeCounter = sinceLogOut.TotalSeconds;
+        //Debug.Log("Seconds: " + timeCounter);
         elapsedTime(timeCounter);
     }
 
@@ -45,6 +46,16 @@ public class CentralTimer : MonoBehaviour
         {
             span = now - logOut;
         }
+
+        Debug.Log("Time elapsed: " + span.ToString());
         return span;
+    }
+
+    private void OnDisable()
+    {
+        float sessionTime = Time.timeSinceLevelLoad;
+        Debug.Log("Session lenght of: " + sessionTime);
+        //devFunctions.checkSessionProgress(sessionTime);
+        //Debug.Log("Times produced register in session: " + controller.sessionTimesProduced);
     }
 }
