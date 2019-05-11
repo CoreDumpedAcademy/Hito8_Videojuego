@@ -12,6 +12,7 @@ public class SaveData
     public float progress;
     public int gameCounter;
     public List<DevState> devStateArray;
+    public DateTime lastLogOut;
 
     public SaveData()
     {
