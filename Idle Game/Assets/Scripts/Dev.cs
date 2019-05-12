@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,18 +36,35 @@ public class Dev : MonoBehaviour
     //Variables defined in game
     public float prodFreq;
     public float prod;                    //amount it currently produces 
-    float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
+    public float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
 
     //Dev "constants"
     public int expGain;                   //exp it's gaining right now
     int maxLvl = 50;
-    float counter = 0;                    //counts time to know when to produce
+    double localCounter = 0;                    //counts time to know when to produce
     private float increaseExp = 1.15f;
     private float textExp;
     private string lvlString;
     private float increaseProd = 1.3f;
 
+    //In game state
+    public bool active = false;
+    public int producedInSession = 0;
     void Start()
+    {
+        if (!active)                                  //If Dev is not set up, set it up
+        {
+            if (typeData == null)                      //If no type is assigned, give it the default
+            {
+                typeSetUp(defaultTypeData);
+            }
+            baseSetUp();
+
+            active = true;
+        } 
+    }
+
+    void baseSetUp()
     {
         controllerObj = GameObject.Find("GameController");
         controller = controllerObj.GetComponent<GameController>();
@@ -56,13 +74,13 @@ public class Dev : MonoBehaviour
         expBarText = expBar.transform.Find("Valor").GetComponent<Text>();
 
         lvlString = "Lvl: " + lvl;
-        expBar.value = (float) exp / maxExp;
+        expBar.value = (float)exp / maxExp;
         expGain = baseExpGain;
 
         sprite.runtimeAnimatorController = typeData.artwork;
     }
 
-    public void startUp(DevData type)
+    void typeSetUp(DevData type)
     {
         if (type != null)
         {
@@ -76,22 +94,46 @@ public class Dev : MonoBehaviour
         prodFreq = typeData.frequency;
         prodPeriod = 1 / prodFreq;
         maxExp = typeData.maxExp;
-        
-        
+    }
+
+    //Used to set up dev before time
+    public void startUp(DevData type)
+    {
+        if (!active)
+        {
+            typeSetUp(type);
+            baseSetUp();
+            active = true;
+        }
     }
 
     void Update()
     {
-        counter += Time.deltaTime;
-        if (counter >= prodPeriod)
-        {
-            controller.addProgress(prod);
-            if (lvl < maxLvl) { gainExp(expGain); }
-            counter -= prodPeriod;
-        }
-
         lvlText.text = lvlString;
     }
+
+    public int elapsedTime(double timeCounter)             //Returns the amount of times produced in the elapsed time
+    {
+        int count = 0;
+        if(active)
+        {
+            localCounter += timeCounter;
+            while(localCounter >= prodPeriod)
+            {
+                inGameProgressStep();
+                localCounter -= prodPeriod;
+                count++;
+            }
+        }
+        return count;
+    }
+    public void inGameProgressStep()
+    {
+        controller.addProgress(prod);
+        if (lvl < maxLvl) { gainExp(expGain); }
+        producedInSession++;
+    }
+
 
     public void gainExp(int gain)
     {
@@ -156,12 +198,18 @@ public class Dev : MonoBehaviour
     public void setState(DevState state)   //set ups a dev using all the state from a dev
     {
         // <-- set type here
-        startUp(typeData);
+        //startUp(typeData);
 
         for(int i = 1; i < state.lvl; i++)
         {
             levelUp();
         }
         exp = state.exp;
+    }
+
+    public int correctProduction(int count, double seconds)            //Return how far production deviates from expected productions
+    {
+        int expectedCount = (int)Math.Floor( seconds * prodFreq);
+        return count - expectedCount;
     }
 }
