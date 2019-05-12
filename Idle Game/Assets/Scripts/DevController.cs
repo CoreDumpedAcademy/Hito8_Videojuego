@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +29,22 @@ public class DevController : MonoBehaviour
         {
             cleanDevArray();
             counter -= cleaningTime;
+        }
+    }
+
+    public void elapsedTime(double timeCounter)
+    {
+        foreach(Dev dev in devArray)
+        {
+            int count = dev.elapsedTime(timeCounter);
+            string debugLine = "Dev production: " + count;
+            int deviation = dev.correctProduction(count, timeCounter);
+            if ( deviation != 0)
+            {
+                debugLine = debugLine + " Incorrect by: " + deviation;
+            }
+
+            //Debug.Log(debugLine);
         }
     }
 
@@ -109,6 +126,46 @@ public class DevController : MonoBehaviour
         Debug.Log(path);
         devType = Resources.Load<DevData>(path);
         return devType;
+    }
+
+    public void simulateOffLineWork(TimeSpan span)
+    {
+        double seconds = span.TotalSeconds;
+        foreach (Dev dev in devArray)
+        {
+            int counter = 0;
+            double simTime = 0;
+            while (simTime < seconds)
+            {
+                dev.inGameProgressStep();
+                simTime += dev.prodPeriod;
+                counter++;
+            }
+            Debug.Log("Veces producidas para " + dev.name + ": " + counter);
+        }
+    }
+
+    public bool checkSessionProgress(float sessionLength)
+    {
+        bool result = true;
+
+        foreach (Dev dev in devArray) {
+            int deviation = dev.correctProduction(dev.producedInSession, sessionLength);
+            string produced = "Dev produced in session: " + dev.producedInSession;
+            string status;
+            if(deviation == 0)
+            {
+                status = "Correct production in session";
+            }
+            else
+            {
+                status = "Deviation of expected by: " + deviation;
+                result = false;
+            }
+            Debug.Log(produced + " " +  status);
+        }
+        
+        return result;
     }
 
     public void writeDevs()
