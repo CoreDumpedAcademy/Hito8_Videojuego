@@ -56,7 +56,7 @@ public class AudioController : MonoBehaviour
 
     public bool playSFX(string clipName)
     {
-        if (controller == null && controller.loading) return false;
+        if (controller == null || controller.loading) return false;
 
         AudioClip value;
         bool result = audioClipDic.TryGetValue(clipName, out value);
