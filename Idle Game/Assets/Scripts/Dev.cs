@@ -161,6 +161,8 @@ public class Dev : MonoBehaviour
     void levelUp()
     {
         lvl++;
+        controller.audio.playSFX(controller.audio.clipNames.devLvlUp);
+
         if (lvl < maxLvl)
         {
             lvlString = "Lvl: " + lvl;

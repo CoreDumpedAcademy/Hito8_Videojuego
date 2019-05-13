@@ -413,7 +413,10 @@ MonoBehaviour:
   type: Dev
   prodFreq: 0
   prod: 0
+  prodPeriod: 0
   expGain: 0
+  active: 0
+  producedInSession: 0
 --- !u!114 &8676189358912231118
 MonoBehaviour:
   m_ObjectHideFlags: 0

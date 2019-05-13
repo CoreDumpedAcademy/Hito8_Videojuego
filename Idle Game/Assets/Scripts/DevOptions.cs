@@ -29,16 +29,19 @@ public class DevOptions : MonoBehaviour
 
     public void OpenOptions()
     {
+        gameController.audio.playSFX(gameController.audio.clipNames.btnClick);
         Debug.Log("marmota");
         optionsMenu.SetActive(true);
     }
 
     public void CloseOptions()
     {
+        gameController.audio.playSFX(gameController.audio.clipNames.btnClick);
         optionsMenu.SetActive(false);
     }
     public void PressSell()
     {
+        gameController.audio.playSFX(gameController.audio.clipNames.btnClick);
         if (devController.devArray.Count > 1) {
             sellMenu.SetActive(true);
             optionsMenu.SetActive(false);
@@ -47,6 +50,7 @@ public class DevOptions : MonoBehaviour
 
     public void returnToPanel()
     {
+        gameController.audio.playSFX(gameController.audio.clipNames.btnClick);
         sellMenu.SetActive(false);
         optionsMenu.SetActive(true);
     }
@@ -54,8 +58,9 @@ public class DevOptions : MonoBehaviour
     public void SellDev()
     {
         sellMenu.SetActive(false);
-        Destroy(gameObject);
         gameController.coins += (dev.typeData.cost / 2);
+        gameController.audio.playSFX( gameController.audio.clipNames.cashRegister );
+        Destroy(gameObject);        
     }
 
 }

@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 {
     CentralTimer timer;
     DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
+    public AudioController audio;
     public DisplayInfo displayInfo;
 
     public Text Coins;
@@ -31,10 +32,11 @@ public class GameController : MonoBehaviour
 
     public int sessionTimesProduced = 0;
     public long cost = 150;
-
+    public bool loading = false;
 
     void Start()
     {
+        audio = GetComponent<AudioController>();
         timer = GetComponent<CentralTimer>();
         devFunctions = gameObject.GetComponent<DevController>();
 
@@ -82,8 +84,9 @@ public class GameController : MonoBehaviour
     {
         coins += reward;
         gameCounter++;
-
-        string debugMessageInit = "Completed game nº: " + gameCounter + " reached progress: " + progress + "/" + max;
+        audio.playSFX( audio.clipNames.completeGameDing );
+        audio.playSFX( audio.clipNames.completeGameCoins );
+        //string debugMessageInit = "Completed game nº: " + gameCounter + " reached progress: " + progress + "/" + max;
 
         progress -= max;
         if (progress < 0) progress = 0;
@@ -95,7 +98,7 @@ public class GameController : MonoBehaviour
             scaleReward();
         }
 
-        string debugMessageFin = "New progress: " + progress + "/" + max + " Reward: " + reward;
+        //string debugMessageFin = "New progress: " + progress + "/" + max + " Reward: " + reward;
 
         //Debug.Log(debugMessageInit + ";" +debugMessageFin);
     }
@@ -142,6 +145,7 @@ public class GameController : MonoBehaviour
                 if (spawnDev(dev))
                 {
                     coins -= dev.cost;
+                    audio.playSFX(audio.clipNames.cashRegister);
                     Debug.Log("Amazon le enviara su pedido en brevas.");
                 }
                 else
@@ -183,6 +187,7 @@ public class GameController : MonoBehaviour
 
     public void loadGame()
     {
+        loading = true;
         //get data
         SaveData save = new SaveData();
         save = save.getFromLocal();       //test data is saved in local
@@ -203,8 +208,9 @@ public class GameController : MonoBehaviour
         //Simulate in-game processes
         simulateInGameProgress();
         timer.simulateOffLineProgress(save.lastLogOut);
-    }
 
+        loading = false;
+    }
 
     void simulateInGameProgress()
     {
