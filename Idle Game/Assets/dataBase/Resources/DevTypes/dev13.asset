@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: dev13
   m_EditorClassIdentifier: 
   artwork: {fileID: 9100000, guid: 1fe99d4ca9e745a40a52009d191c9727, type: 2}
-  devName: Umaru
+  devName: Umako
   cost: 1300
   production: 26
   frequency: 34
