@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 {
     CentralTimer timer;
     DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
+    public AudioController audio;
     public DisplayInfo displayInfo;
 
     public Text Coins;
@@ -35,6 +36,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        audio = GetComponent<AudioController>();
         timer = GetComponent<CentralTimer>();
         devFunctions = gameObject.GetComponent<DevController>();
 
@@ -82,8 +84,9 @@ public class GameController : MonoBehaviour
     {
         coins += reward;
         gameCounter++;
-
-        string debugMessageInit = "Completed game nº: " + gameCounter + " reached progress: " + progress + "/" + max;
+        audio.playSFX( audio.clipNames.completeGameDing );
+        audio.playSFX( audio.clipNames.completeGameCoins );
+        //string debugMessageInit = "Completed game nº: " + gameCounter + " reached progress: " + progress + "/" + max;
 
         progress -= max;
         if (progress < 0) progress = 0;
@@ -95,7 +98,7 @@ public class GameController : MonoBehaviour
             scaleReward();
         }
 
-        string debugMessageFin = "New progress: " + progress + "/" + max + " Reward: " + reward;
+        //string debugMessageFin = "New progress: " + progress + "/" + max + " Reward: " + reward;
 
         //Debug.Log(debugMessageInit + ";" +debugMessageFin);
     }

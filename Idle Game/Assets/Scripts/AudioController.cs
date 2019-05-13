@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour
 {
-    public AudioSource source;
+    public GameObject sourceObj;
+    public GameObject listenerObj;
+    private AudioSource source;
+    private AudioListener listener;
 
     string audioClipsPath = "sfx";
     string musicClipsPath = "music";
@@ -12,13 +16,18 @@ public class AudioController : MonoBehaviour
     public Object[] audioClips;
     public Object[] musicClips;
 
-    public Dictionary<string, AudioClip> audioClipDic;
-    public Dictionary<string, AudioClip> musicClipDic;
+    public Dictionary<string, AudioClip> audioClipDic = new Dictionary<string, AudioClip>();
+    public Dictionary<string, AudioClip> musicClipDic = new Dictionary<string, AudioClip>();
 
     public audioClipsNames clipNames;
 
+    public string prefMasterVolume = "MasterVolume";
+
     void Start()
-    {        
+    {
+        source = sourceObj.GetComponent<AudioSource>();
+        listener = listenerObj.GetComponent<AudioListener>();
+
         audioClips = Resources.LoadAll(audioClipsPath, typeof(AudioClip));
         musicClips = Resources.LoadAll(musicClipsPath, typeof(AudioClip));
 
@@ -32,6 +41,11 @@ public class AudioController : MonoBehaviour
         {
             musicClipDic.Add(music.name, music);
         }
+    }
+
+    private void Update()
+    {
+        AudioListener.volume = PlayerPrefs.GetFloat(prefMasterVolume, 0); ;
     }
 
     public bool playSFX(string clipName)
