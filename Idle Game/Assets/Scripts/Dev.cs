@@ -16,7 +16,7 @@ public class Dev : MonoBehaviour
     public DevData typeData;
     public DevData defaultTypeData;
 
-    Image sprite;
+    Animator sprite;
 
     Text lvlText;
     public Slider expBar;
@@ -69,7 +69,7 @@ public class Dev : MonoBehaviour
         controllerObj = GameObject.Find("GameController");
         controller = controllerObj.GetComponent<GameController>();
 
-        sprite = transform.Find("Sprite").GetComponent<Image>();
+        sprite = transform.Find("Sprite").GetComponent<Animator>();
         lvlText = transform.Find("Nivel").GetComponent<Text>();
         expBarText = expBar.transform.Find("Valor").GetComponent<Text>();
 
@@ -77,7 +77,7 @@ public class Dev : MonoBehaviour
         expBar.value = (float)exp / maxExp;
         expGain = baseExpGain;
 
-        sprite.sprite = typeData.artwork;
+        sprite.runtimeAnimatorController = typeData.artwork;
     }
 
     void typeSetUp(DevData type)
@@ -188,7 +188,7 @@ public class Dev : MonoBehaviour
     public DevState getState()
     {
         DevState state = new DevState();
-        state.type = typeData.devName;
+        state.type = typeData.name;
         state.exp = exp;
         state.lvl = lvl;
         return state;

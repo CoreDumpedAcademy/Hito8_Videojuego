@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17103c897abfe5345b277734139989d5, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
-  artwork: {fileID: 21300000, guid: b3f9829a33d052f479b3c4f540bfd02b, type: 3}
+  artwork: {fileID: 9100000, guid: 5ee8eb399c9be4b4cb358c12ad43639b, type: 2}
   devName: Empty
   cost: 0
   production: 0

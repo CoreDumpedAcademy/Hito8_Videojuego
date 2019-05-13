@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 2118528741033897532}
   - component: {fileID: 2118528741033897534}
   - component: {fileID: 2118528741033897533}
+  - component: {fileID: 6548614443612983536}
   m_Layer: 5
   m_Name: Sprite
   m_TagString: Untagged
@@ -506,6 +507,25 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!95 &6548614443612983536
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118528741033897531}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2118528741075374702
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,6 +1691,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2118528740094805956}
     m_Modifications:
+    - target: {fileID: 1455145249860746112, guid: 5beec9e1bc29a354188609d20bd0589b,
+        type: 3}
+      propertyPath: m_Name
+      value: BarraProgreso
+      objectReference: {fileID: 0}
     - target: {fileID: 2020519068817290843, guid: 5beec9e1bc29a354188609d20bd0589b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1740,11 +1765,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.10611112
-      objectReference: {fileID: 0}
-    - target: {fileID: 1455145249860746112, guid: 5beec9e1bc29a354188609d20bd0589b,
-        type: 3}
-      propertyPath: m_Name
-      value: BarraProgreso
       objectReference: {fileID: 0}
     - target: {fileID: 7218036613528018942, guid: 5beec9e1bc29a354188609d20bd0589b,
         type: 3}
@@ -1838,6 +1858,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5beec9e1bc29a354188609d20bd0589b, type: 3}
+--- !u!4 &102691951673596680 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2020519068817290843, guid: 5beec9e1bc29a354188609d20bd0589b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2118528741474446675}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2369898064218428150 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4432974773582708645, guid: 5beec9e1bc29a354188609d20bd0589b,
@@ -1850,9 +1876,3 @@ MonoBehaviour:
   m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &102691951673596680 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2020519068817290843, guid: 5beec9e1bc29a354188609d20bd0589b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2118528741474446675}
-  m_PrefabAsset: {fileID: 0}

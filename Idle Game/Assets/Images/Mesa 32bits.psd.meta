@@ -92,7 +92,11 @@ TextureImporter:
     secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
+<<<<<<< HEAD
+  pSDShowRemoveMatteOption: 0
+=======
   pSDShowRemoveMatteOption: 1
+>>>>>>> 9daf85f198fff2bf273a42f712e39d1d230f4021
   userData: 
   assetBundleName: 
   assetBundleVariant: 
