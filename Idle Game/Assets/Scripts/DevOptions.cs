@@ -24,7 +24,7 @@ public class DevOptions : MonoBehaviour
         optionsMenu.SetActive(false);
         sellMenu.SetActive(false);
         devCost.text = "Sell: " + dev.typeData.cost / 2;
-        devName.text = dev.typeData.name;
+        devName.text = dev.typeData.devName;
     }
 
     public void OpenOptions()
