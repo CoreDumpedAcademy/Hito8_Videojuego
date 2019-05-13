@@ -214,4 +214,9 @@ public class Dev : MonoBehaviour
         int expectedCount = (int)Math.Floor( seconds * prodFreq);
         return count - expectedCount;
     }
+
+    private void OnDestroy()
+    {
+        active = false;
+    }
 }
