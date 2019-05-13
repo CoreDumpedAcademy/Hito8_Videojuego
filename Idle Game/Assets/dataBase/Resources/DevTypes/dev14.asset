@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17103c897abfe5345b277734139989d5, type: 3}
+  m_Name: dev14
+  m_EditorClassIdentifier: 
+  artwork: {fileID: 9100000, guid: 2013711fad8c73c4f8a5099df371b65f, type: 2}
+  devName: Perro
+  cost: 1400
+  production: 30
+  frequency: 37
+  maxExp: 100
