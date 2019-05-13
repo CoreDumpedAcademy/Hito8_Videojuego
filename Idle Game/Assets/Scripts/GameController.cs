@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
 
     public int sessionTimesProduced = 0;
     public long cost = 150;
-
+    public bool loading = false;
 
     void Start()
     {
@@ -186,6 +186,7 @@ public class GameController : MonoBehaviour
 
     public void loadGame()
     {
+        loading = true;
         //get data
         SaveData save = new SaveData();
         save = save.getFromLocal();       //test data is saved in local
@@ -206,8 +207,9 @@ public class GameController : MonoBehaviour
         //Simulate in-game processes
         simulateInGameProgress();
         timer.simulateOffLineProgress(save.lastLogOut);
-    }
 
+        loading = false;
+    }
 
     void simulateInGameProgress()
     {

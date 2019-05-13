@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour
 {
+    private GameObject controllerObj;
+    private GameController controller;
     public GameObject sourceObj;
     public GameObject listenerObj;
     private AudioSource source;
@@ -25,6 +27,8 @@ public class AudioController : MonoBehaviour
 
     void Start()
     {
+        controllerObj = GameObject.Find("GameController");
+        controller = controllerObj.GetComponent<GameController>();
         source = sourceObj.GetComponent<AudioSource>();
         listener = listenerObj.GetComponent<AudioListener>();
 
@@ -50,6 +54,8 @@ public class AudioController : MonoBehaviour
 
     public bool playSFX(string clipName)
     {
+        if (controller.loading) return false;
+
         AudioClip value;
         bool result = audioClipDic.TryGetValue(clipName, out value);
         if (result)
