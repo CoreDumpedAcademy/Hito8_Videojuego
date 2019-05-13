@@ -32,6 +32,8 @@ public class AudioController : MonoBehaviour
         source = sourceObj.GetComponent<AudioSource>();
         listener = listenerObj.GetComponent<AudioListener>();
 
+        Debug.Log("Start");
+
         audioClips = Resources.LoadAll(audioClipsPath, typeof(AudioClip));
         musicClips = Resources.LoadAll(musicClipsPath, typeof(AudioClip));
 
@@ -54,7 +56,7 @@ public class AudioController : MonoBehaviour
 
     public bool playSFX(string clipName)
     {
-        if (controller.loading) return false;
+        if (controller == null && controller.loading) return false;
 
         AudioClip value;
         bool result = audioClipDic.TryGetValue(clipName, out value);

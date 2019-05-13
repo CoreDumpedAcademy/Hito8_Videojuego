@@ -54,8 +54,9 @@ public class DevOptions : MonoBehaviour
     public void SellDev()
     {
         sellMenu.SetActive(false);
-        Destroy(gameObject);
         gameController.coins += (dev.typeData.cost / 2);
+        gameController.audio.playSFX( gameController.audio.clipNames.cashRegister );
+        Destroy(gameObject);        
     }
 
 }

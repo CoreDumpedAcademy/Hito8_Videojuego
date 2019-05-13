@@ -145,6 +145,7 @@ public class GameController : MonoBehaviour
                 if (spawnDev(dev))
                 {
                     coins -= dev.cost;
+                    audio.playSFX(audio.clipNames.cashRegister);
                     Debug.Log("Amazon le enviara su pedido en brevas.");
                 }
                 else
