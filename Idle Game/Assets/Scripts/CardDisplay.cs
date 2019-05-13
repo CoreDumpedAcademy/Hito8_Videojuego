@@ -9,12 +9,12 @@ public class CardDisplay : MonoBehaviour
     public DevData devData;
 
     public TextMeshProUGUI cost;
-    public Image sprite;
+    public Animator sprite;
 
     // Start is called before the first frame update
     void Start()
     {
         cost.text = devData.cost.ToString() + " C";
-        sprite.sprite = devData.artwork;
+        sprite.runtimeAnimatorController = devData.artwork;
     }
 }
