@@ -128,7 +128,7 @@ public class DevController : MonoBehaviour
         return devType;
     }
 
-    public void simulateOffLineWork(TimeSpan span)
+    /*public void simulateOffLineWork(TimeSpan span)
     {
         double seconds = span.TotalSeconds;
         foreach (Dev dev in devArray)
@@ -144,7 +144,7 @@ public class DevController : MonoBehaviour
             Debug.Log("Veces producidas para " + dev.name + ": " + counter);
         }
     }
-
+    */
     public bool checkSessionProgress(float sessionLength)
     {
         bool result = true;
