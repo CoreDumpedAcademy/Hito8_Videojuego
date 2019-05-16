@@ -13,7 +13,6 @@ public class Dev : MonoBehaviour
 
     GameObject origin;
 
-    public DevData typeData;
     public DevData defaultTypeData;
 
     Animator sprite;
@@ -30,8 +29,9 @@ public class Dev : MonoBehaviour
 
     //Variables that define this dev's state
     public float exp = 0;
-    public int lvl = 1;                   //current level
-    public string type = "Dev";           //hard coded for now     
+    public int lvl = 1;                                        //current level
+    public DevData typeData;                                   //DevData object that defines the dev type
+    public devActivity currActivity = devActivity.resting;
 
     //Variables defined in game
     public float prodFreq;
@@ -39,13 +39,18 @@ public class Dev : MonoBehaviour
     public float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
 
     //Dev "constants"
-    public int expGain;                   //exp it's gaining right now
+    public int expGain;                                    //exp it's gaining right now
     int maxLvl = 50;
-    double localCounter = 0;                    //counts time to know when to produce
-    private float increaseExp = 1.15f;
-    private float textExp;
-    private string lvlString;
-    private float increaseProd = 1.3f;
+    public float motivation = 0;
+    float motivGain;
+    float restPeriod = 0.5f;                               //seconds between resting steps
+    public float maxMotiv = 100;
+    TimeSpan maxRestTime = new TimeSpan(0, 00, 15);        //Time it takes to go from 0 to full motivation
+    double localCounter = 0;                               //counts time to know when to produce
+    float increaseExp = 1.15f;
+    float textExp;
+    string lvlString;
+    float increaseProd = 1.3f;
 
     //In game state
     public bool active = false;
@@ -77,7 +82,16 @@ public class Dev : MonoBehaviour
         expBar.value = (float)exp / maxExp;
         expGain = baseExpGain;
 
+        motivGain = setMotivGain();
+
         sprite.runtimeAnimatorController = typeData.artwork;
+    }
+
+    float setMotivGain()
+    {
+        float totalSteps = (float)maxRestTime.TotalSeconds / restPeriod;
+        float gain = maxMotiv / totalSteps;
+        return gain;
     }
 
     void typeSetUp(DevData type)
@@ -118,23 +132,56 @@ public class Dev : MonoBehaviour
         if(active)
         {
             localCounter += timeCounter;
-            while(localCounter >= prodPeriod)
-            {
-                inGameProgressStep();
-                localCounter -= prodPeriod;
-                count++;
-            }
+            count = inGameSteps();
         }
         return count;
     }
-    public void inGameProgressStep()
+
+    int inGameSteps()
     {
-        controller.addProgress(prod);
-        if (lvl < maxLvl) { gainExp(expGain); }
-        producedInSession++;
+        int count = 0;
+        switch (currActivity)
+        {
+            case devActivity.working:
+                count = workingSteps();
+                break;
+            case devActivity.resting:
+                count = restingSteps();
+                break;
+            case devActivity.training:
+                break;
+        }
+        return count;
     }
 
+    int workingSteps()
+    {
+        int count = 0;
+        while (localCounter >= prodPeriod)
+        {
+            controller.addProgress(prod);
+            if (lvl < maxLvl) { gainExp(expGain); }
+            localCounter -= prodPeriod;
+            producedInSession++;
+            count++;
+        }
+        return count;
+    }
 
+    int restingSteps()
+    {
+        int count = 0;
+
+        while (localCounter >= restPeriod && motivation <= maxMotiv)
+        {
+            motivation += motivGain;
+            if (motivation > maxMotiv) motivation = maxMotiv;
+            localCounter -= restPeriod;
+            count++;
+        }
+
+        return count;
+    }
     public void gainExp(int gain)
     {
         exp += gain;
@@ -218,5 +265,12 @@ public class Dev : MonoBehaviour
     private void OnDestroy()
     {
         active = false;
+    }
+
+    public enum devActivity
+    {
+        working,
+        resting,
+        training
     }
 }
