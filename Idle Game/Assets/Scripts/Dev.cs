@@ -31,7 +31,7 @@ public class Dev : MonoBehaviour
     public float exp = 0;
     public int lvl = 1;                                        //current level
     public DevData typeData;                                   //DevData object that defines the dev type
-    public devActivity currActivity = devActivity.working;
+    public devActivity currActivity = devActivity.training;
     public float energy;
 
     //Variables defined in game
@@ -48,13 +48,15 @@ public class Dev : MonoBehaviour
     //Dev "constants"
     int maxLvl = 50;
     float restPeriod = 0.5f;                               //seconds between resting steps
+    float trainPeriod = 0.5f;
     public float maxEnergy = 100;
     TimeSpan maxRestTime = new TimeSpan(2, 30, 00);        //Time it takes to go from 0 to full energy
     TimeSpan maxWorkTime = new TimeSpan(3, 00, 00);        //Time it takes to go from full to 0 energy while working
-    TimeSpan maxTrainTime = new TimeSpan(1, 30, 00);       //Same, but while training
+    TimeSpan maxTrainTime = new TimeSpan(0, 50, 00);       //Same, but while training
     double localCounter = 0;                               //counts time to know when to produce
     float increaseExp = 1.15f;
     float increaseProd = 1.3f;
+    float trainExpFactor = 5;                              //Factor by which exp gain increases while training
     float[,] energyFactorTable = new float[,] {              //Relates a fraction of energy to a factor to multiply 
         { 0.98f, 3 },                                      //the production
         { 0.25f, 1 },
@@ -115,7 +117,7 @@ public class Dev : MonoBehaviour
             totalSteps = (int)(maxWorkTime.TotalSeconds / prodPeriod);
         } else if(currActivity == devActivity.training)
         {
-            //totalSteps = (int)(maxTrainTime.TotalSeconds / trainPeriod);
+            totalSteps = (int)(maxTrainTime.TotalSeconds / trainPeriod);
         }
         loss = maxEnergy / totalSteps;
 
@@ -178,6 +180,7 @@ public class Dev : MonoBehaviour
                 count = restingSteps();
                 break;
             case devActivity.training:
+                count = trainingSteps();
                 break;
         }
         return count;
@@ -189,7 +192,7 @@ public class Dev : MonoBehaviour
         while (localCounter >= prodPeriod && energy > 0)
         {
             controller.addProgress(prod * energyFactor);
-            energy -= energyLoss;
+            energy -= energyLoss ;
             if (energy < 0) energy = 0;
             if (lvl < maxLvl) { gainExp(expGain * (int)energyFactor); }
             localCounter -= prodPeriod;
@@ -212,6 +215,28 @@ public class Dev : MonoBehaviour
         }
 
         return count;
+    }
+
+    int trainingSteps()
+    {
+        int count = 0;
+
+        while (localCounter > trainPeriod && energy > 0)
+        {
+            energy -= energyLoss;
+            if (energy < 0) energy = 0;
+            if (lvl < maxLvl) { gainExp(expGain * (int)trainExpFactor); }
+            localCounter -= trainPeriod;
+            count++;
+        }
+
+        return count;
+    }
+
+    void changeActivity(devActivity activity)
+    {
+        currActivity = activity;
+        energyLoss = setEnergyLoss();
     }
 
     float updateEnergyFactor()
