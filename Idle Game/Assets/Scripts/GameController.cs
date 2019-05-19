@@ -35,8 +35,8 @@ public class GameController : MonoBehaviour
     int rewardThreshold = 5;
     int resetBaseMinGames = 5;
     int resetMinGamesIncrease = 5;
-    float resetFactor = 1;
-    float resetIncreaseFactor = 0.5f;
+    public float resetFactor = 1;
+    public float resetIncreaseFactor = 0.5f;
     bool resetAvailable = false;
 
     public int sessionTimesProduced = 0;
