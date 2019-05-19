@@ -19,6 +19,7 @@ public class Dev : MonoBehaviour
 
     Text lvlText;
     public Slider expBar;
+    public Slider energyBar;
     Text expBarText;
 
     //Variables that differentiate Devs types
@@ -50,9 +51,9 @@ public class Dev : MonoBehaviour
     float restPeriod = 0.5f;                               //seconds between resting steps
     float trainPeriod = 0.5f;
     public float maxEnergy = 100;
-    TimeSpan maxRestTime = new TimeSpan(2, 30, 00);        //Time it takes to go from 0 to full energy
-    TimeSpan maxWorkTime = new TimeSpan(3, 00, 00);        //Time it takes to go from full to 0 energy while working
-    TimeSpan maxTrainTime = new TimeSpan(0, 50, 00);       //Same, but while training
+    TimeSpan maxRestTime = new TimeSpan(0, 01, 00);        //Time it takes to go from 0 to full energy
+    TimeSpan maxWorkTime = new TimeSpan(0, 00, 30);        //Time it takes to go from full to 0 energy while working
+    TimeSpan maxTrainTime = new TimeSpan(0, 00, 10);       //Same, but while training
     double localCounter = 0;                               //counts time to know when to produce
     float increaseExp = 1.15f;
     float increaseProd = 1.3f;
@@ -115,11 +116,12 @@ public class Dev : MonoBehaviour
         if (currActivity == devActivity.working)
         {
             totalSteps = (int)(maxWorkTime.TotalSeconds / prodPeriod);
+            loss = maxEnergy / totalSteps;
         } else if(currActivity == devActivity.training)
         {
             totalSteps = (int)(maxTrainTime.TotalSeconds / trainPeriod);
+            loss = maxEnergy / totalSteps;
         }
-        loss = maxEnergy / totalSteps;
 
         return loss;
     }
@@ -154,6 +156,7 @@ public class Dev : MonoBehaviour
     void Update()
     {
         lvlText.text = lvlString;
+        energyBar.value = energy / maxEnergy;
     }
 
     public int elapsedTime(double timeCounter)             //Returns the amount of times produced in the elapsed time
@@ -233,7 +236,7 @@ public class Dev : MonoBehaviour
         return count;
     }
 
-    void changeActivity(devActivity activity)
+    public void changeActivity(devActivity activity)
     {
         currActivity = activity;
         energyLoss = setEnergyLoss();

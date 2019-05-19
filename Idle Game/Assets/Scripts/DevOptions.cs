@@ -13,6 +13,24 @@ public class DevOptions : MonoBehaviour
     GameObject controllerObj;
     GameController gameController;
     DevController devController;
+    /*
+    public Button btn1;
+    public Dev.devActivity btn1Option;
+    public Text btn1Text;
+    public Button btn2;
+    public Dev.devActivity btn2Option;
+    public Text btn2Text;
+    */
+
+    public activityOptionBtn btn1;
+    public activityOptionBtn btn2;
+
+    Dictionary<Dev.devActivity, string> activityOptions = new Dictionary<Dev.devActivity, string>
+    {
+        { Dev.devActivity.training, "Training" },
+        { Dev.devActivity.resting, "Resting" },
+        { Dev.devActivity.working,"Working" }
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +43,9 @@ public class DevOptions : MonoBehaviour
         sellMenu.SetActive(false);
         devCost.text = "Sell: " + dev.typeData.cost / 2;
         devName.text = dev.typeData.devName;
+
+        btn1.text.text = activityOptions[btn1.option];
+        btn2.text.text = activityOptions[btn2.option];
     }
 
     public void OpenOptions()
@@ -63,4 +84,45 @@ public class DevOptions : MonoBehaviour
         Destroy(gameObject);        
     }
 
+    public void btn1Click()
+    {
+        dev.changeActivity(btn1.option);
+
+        if (btn1.option == Dev.devActivity.training)
+        {
+            btn1.option = Dev.devActivity.working;
+        } else
+        {
+            btn1.option = Dev.devActivity.training;
+        }
+
+        btn1.text.text = activityOptions[btn1.option];
+    }
+
+    public void btn2Click()
+    {
+        dev.changeActivity(btn2.option);
+
+        if (btn2.option == Dev.devActivity.resting)
+        {
+            btn2.option = Dev.devActivity.working;
+        }
+        else
+        {
+            btn2.option = Dev.devActivity.resting;
+        }
+
+        btn2.text.text = activityOptions[btn2.option];
+    }
+
+    [System.Serializable]
+    public struct activityOptionBtn
+    {
+        [SerializeField]
+        public Button btn;
+        [SerializeField]
+        public Text text;
+        [SerializeField]
+        public Dev.devActivity option;
+    }
 }
