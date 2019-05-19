@@ -9,6 +9,8 @@ public class DevState
     public string type;
     public int lvl;
     public float exp;
+    public float energy;
+    public Dev.devActivity activity;
 
     public DevState()
     {
@@ -18,6 +20,6 @@ public class DevState
 
     override public string ToString()
     {
-        return "Type: " + type + " lvl: " + lvl + " exp: " + exp;
+        return "Type: " + type + " lvl: " + lvl + " exp: " + exp + " energy: "+ energy + " activity: " + activity.ToString();
     }
 }

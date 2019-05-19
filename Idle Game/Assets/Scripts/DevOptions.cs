@@ -22,6 +22,11 @@ public class DevOptions : MonoBehaviour
     public Text btn2Text;
     */
 
+    Dev.devActivity[] defaultActivityOptions = new Dev.devActivity[2] {
+        Dev.devActivity.training,
+        Dev.devActivity.resting
+    };
+
     public activityOptionBtn btn1;
     public activityOptionBtn btn2;
 
@@ -43,6 +48,16 @@ public class DevOptions : MonoBehaviour
         sellMenu.SetActive(false);
         devCost.text = "Sell: " + dev.typeData.cost / 2;
         devName.text = dev.typeData.devName;
+
+        if (dev.currActivity == defaultActivityOptions[0])
+        {
+            btn1.option = Dev.devActivity.working;
+            btn2.option = defaultActivityOptions[1];
+        } else if (dev.currActivity == defaultActivityOptions[1])
+        {
+            btn1.option = defaultActivityOptions[0];
+            btn2.option = Dev.devActivity.working;
+        }
 
         btn1.text.text = activityOptions[btn1.option];
         btn2.text.text = activityOptions[btn2.option];
@@ -88,30 +103,34 @@ public class DevOptions : MonoBehaviour
     {
         dev.changeActivity(btn1.option);
 
-        if (btn1.option == Dev.devActivity.training)
+        if (btn1.option == defaultActivityOptions[0])
         {
             btn1.option = Dev.devActivity.working;
+            btn2.option = defaultActivityOptions[1];
         } else
         {
-            btn1.option = Dev.devActivity.training;
+            btn1.option = defaultActivityOptions[0];
         }
 
         btn1.text.text = activityOptions[btn1.option];
+        btn2.text.text = activityOptions[btn2.option];
     }
 
     public void btn2Click()
     {
         dev.changeActivity(btn2.option);
 
-        if (btn2.option == Dev.devActivity.resting)
+        if (btn2.option == defaultActivityOptions[1])
         {
+            btn1.option = defaultActivityOptions[0];
             btn2.option = Dev.devActivity.working;
         }
         else
         {
-            btn2.option = Dev.devActivity.resting;
+            btn2.option = defaultActivityOptions[1];
         }
 
+        btn1.text.text = activityOptions[btn1.option];
         btn2.text.text = activityOptions[btn2.option];
     }
 

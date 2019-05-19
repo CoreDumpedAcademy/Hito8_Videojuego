@@ -32,7 +32,7 @@ public class Dev : MonoBehaviour
     public float exp = 0;
     public int lvl = 1;                                        //current level
     public DevData typeData;                                   //DevData object that defines the dev type
-    public devActivity currActivity = devActivity.training;
+    public devActivity currActivity = devActivity.working;
     public float energy;
 
     //Variables defined in game
@@ -192,6 +192,12 @@ public class Dev : MonoBehaviour
     int workingSteps()
     {
         int count = 0;
+
+        if (energy == 0)
+        {
+            localCounter = 0;
+        }
+
         while (localCounter >= prodPeriod && energy > 0)
         {
             controller.addProgress(prod * energyFactor);
@@ -209,6 +215,11 @@ public class Dev : MonoBehaviour
     {
         int count = 0;
 
+        if(energy == maxEnergy)
+        {
+            localCounter = 0;
+        }
+
         while (localCounter >= restPeriod && energy <= maxEnergy)
         {
             energy += energyGain;
@@ -223,6 +234,11 @@ public class Dev : MonoBehaviour
     int trainingSteps()
     {
         int count = 0;
+
+        if (energy == 0)
+        {
+            localCounter = 0;
+        }
 
         while (localCounter > trainPeriod && energy > 0)
         {
@@ -319,6 +335,9 @@ public class Dev : MonoBehaviour
         state.type = typeData.name;
         state.exp = exp;
         state.lvl = lvl;
+        state.energy = energy;
+        state.activity = currActivity;
+
         return state;
     }
 
@@ -333,6 +352,8 @@ public class Dev : MonoBehaviour
             levelUp();
         }
         exp = state.exp;
+        energy = state.energy;
+        currActivity = state.activity;
     }
 
     public int correctProduction(int count, double seconds)            //Return how far production deviates from expected productions
