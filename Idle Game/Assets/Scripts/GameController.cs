@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
     public AudioController audio;
     public DisplayInfo displayInfo;
 
+    public Button resetButton;
+
     public Text Coins;
     public Slider GameProgress;
     
@@ -18,10 +20,13 @@ public class GameController : MonoBehaviour
     public long coins;
     public float progress;                     //game progress points    
     public int gameCounter;                    //How many games have been completed
+    public int resets;
 
     //Calculated in game
     public long reward;
     private float max;                         //progress points to complete a game  
+    int resetMinGames;
+    public float resetFactor = 1;
 
     //in game "constants"
     public long initialReward = 50;            //Coin reward for completing game
@@ -29,6 +34,10 @@ public class GameController : MonoBehaviour
     private float initialMax = 10;                
     private float maxScaleFactor = 0.5f;
     int rewardThreshold = 5;
+    int resetBaseMinGames = 5;
+    int resetMinGamesIncrease = 5;
+    public float resetIncreaseFactor = 0.5f;
+    bool resetAvailable = false;
 
     public int sessionTimesProduced = 0;
     public long cost = 150;
@@ -39,6 +48,8 @@ public class GameController : MonoBehaviour
         audio = GetComponent<AudioController>();
         timer = GetComponent<CentralTimer>();
         devFunctions = gameObject.GetComponent<DevController>();
+
+        resetMinGames = resetBaseMinGames;
 
         max = initialMax;
         reward = initialReward;
@@ -64,7 +75,7 @@ public class GameController : MonoBehaviour
 
     public void addProgress(float prog)
     {
-        progress += prog;
+        progress += prog * resetFactor;
         sessionTimesProduced++;
 
         while (progress > max)
@@ -88,6 +99,11 @@ public class GameController : MonoBehaviour
         audio.playSFX( audio.clipNames.completeGameCoins );
         //string debugMessageInit = "Completed game nº: " + gameCounter + " reached progress: " + progress + "/" + max;
 
+        if (gameCounter >= resetMinGames)
+        {
+            allowReset(true);
+        }
+
         progress -= max;
         if (progress < 0) progress = 0;
 
@@ -101,6 +117,12 @@ public class GameController : MonoBehaviour
         //string debugMessageFin = "New progress: " + progress + "/" + max + " Reward: " + reward;
 
         //Debug.Log(debugMessageInit + ";" +debugMessageFin);
+    }
+
+    void allowReset(bool available)
+    {
+        resetAvailable = available;
+        resetButton.gameObject.SetActive(available);
     }
 
     private void ScaleFactorAdjust()
@@ -164,6 +186,37 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void resetProgress()
+    {
+        //Reset state
+        max = initialMax;
+        reward = initialReward;
+        coins = 150;
+        progress = 0;
+        gameCounter = 0;
+
+        devFunctions.clearDevs();
+
+        resets++;
+        resetFactor = updateResetFactor();
+        resetMinGames = updateMinGames();
+
+        allowReset(false);
+    }
+
+    float updateResetFactor()
+    {
+        float factor = 1;
+        factor = 1 + resetIncreaseFactor * resets;
+        return factor;
+    }
+    int updateMinGames()
+    {
+        int minGames = resetMinGames;
+        minGames = resetBaseMinGames + resetMinGamesIncrease * resets;
+        return minGames;
+    }
+
     //Saving game stuff
     public void saveGame()
     {
@@ -180,6 +233,7 @@ public class GameController : MonoBehaviour
         save.gameCounter = gameCounter;
         save.devStateArray = devFunctions.getDevState();
         save.lastLogOut = DateTime.Now;
+        save.resets = resets;
         //get dev data
 
         return save;
@@ -201,7 +255,8 @@ public class GameController : MonoBehaviour
         coins = save.coins;
         progress = save.progress;
         gameCounter = save.gameCounter;
-        
+        resets = save.resets;
+
         devFunctions.clearDevs();
         devFunctions.recreateDevs(save.devStateArray);
 
@@ -222,5 +277,8 @@ public class GameController : MonoBehaviour
                 scaleReward();
             }
         }
+        resetFactor = updateResetFactor();
+        resetMinGames = updateMinGames();
+        resetAvailable = gameCounter >= resetMinGames;
     }
 }
