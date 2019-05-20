@@ -13,6 +13,7 @@ public class SaveData
     public int gameCounter;
     public List<DevState> devStateArray;
     public DateTime lastLogOut;
+    public bool notDefaultfile; 
 
     public SaveData()
     {
