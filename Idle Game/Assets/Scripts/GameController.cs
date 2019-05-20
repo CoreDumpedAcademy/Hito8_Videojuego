@@ -27,12 +27,13 @@ public class GameController : MonoBehaviour
     private float max;                         //progress points to complete a game  
     int resetMinGames;
     public float resetFactor = 1;
+    private float maxScaleFactor;
 
     //in game "constants"
     public long initialReward = 50;            //Coin reward for completing game
     private long rewardIncrease = 10;
-    private float initialMax = 10;                
-    private float maxScaleFactor = 0.5f;
+    private float initialMax = 10;
+    private float initialMaxScaleFactor = 0.5f;
     int rewardThreshold = 5;
     int resetBaseMinGames = 5;
     int resetMinGamesIncrease = 5;
@@ -53,6 +54,7 @@ public class GameController : MonoBehaviour
 
         max = initialMax;
         reward = initialReward;
+        maxScaleFactor = initialMaxScaleFactor;
         coins = 150;
         progress = 0;
         gameCounter = 0; if (LoadState.LoadSituation)
@@ -190,6 +192,7 @@ public class GameController : MonoBehaviour
     {
         //Reset state
         max = initialMax;
+        maxScaleFactor = initialMaxScaleFactor;
         reward = initialReward;
         coins = 150;
         progress = 0;
