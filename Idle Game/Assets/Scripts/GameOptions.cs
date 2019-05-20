@@ -20,7 +20,7 @@ public class GameOptions : MonoBehaviour
 
     void Update()
     {
-        int currSpeed = (int) gameController.resetFactor * 100;
+        int currSpeed = (int)(gameController.resetFactor * 100);
         int nextSpeed = (int)((gameController.resetFactor + gameController.resetIncreaseFactor) * 100);
 
         Debug.Log(currSpeed + " " + nextSpeed);

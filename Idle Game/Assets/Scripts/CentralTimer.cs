@@ -10,7 +10,7 @@ public class CentralTimer : MonoBehaviour
 
     double counter = 0;
 
-    void Start()
+    void Awake()
     {
         controller = gameObject.GetComponent<GameController>();
         devFunctions = gameObject.GetComponent<DevController>();

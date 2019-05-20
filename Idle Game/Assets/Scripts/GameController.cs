@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     public long reward;
     private float max;                         //progress points to complete a game  
     int resetMinGames;
+    public float resetFactor = 1;
 
     //in game "constants"
     public long initialReward = 50;            //Coin reward for completing game
@@ -35,7 +36,6 @@ public class GameController : MonoBehaviour
     int rewardThreshold = 5;
     int resetBaseMinGames = 5;
     int resetMinGamesIncrease = 5;
-    public float resetFactor = 1;
     public float resetIncreaseFactor = 0.5f;
     bool resetAvailable = false;
 
@@ -233,6 +233,7 @@ public class GameController : MonoBehaviour
         save.gameCounter = gameCounter;
         save.devStateArray = devFunctions.getDevState();
         save.lastLogOut = DateTime.Now;
+        save.resets = resets;
         //get dev data
 
         return save;
@@ -254,7 +255,8 @@ public class GameController : MonoBehaviour
         coins = save.coins;
         progress = save.progress;
         gameCounter = save.gameCounter;
-        
+        resets = save.resets;
+
         devFunctions.clearDevs();
         devFunctions.recreateDevs(save.devStateArray);
 
@@ -275,5 +277,8 @@ public class GameController : MonoBehaviour
                 scaleReward();
             }
         }
+        resetFactor = updateResetFactor();
+        resetMinGames = updateMinGames();
+        resetAvailable = gameCounter >= resetMinGames;
     }
 }
