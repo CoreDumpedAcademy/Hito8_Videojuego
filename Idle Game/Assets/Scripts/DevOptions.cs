@@ -7,8 +7,10 @@ public class DevOptions : MonoBehaviour
 {
     public GameObject optionsMenu;
     public GameObject sellMenu;
+    public GameObject exhausted;
     public Text devName;
     public Text devCost;
+    public Text workText;
     public Dev dev;
     GameObject controllerObj;
     GameController gameController;
@@ -48,6 +50,7 @@ public class DevOptions : MonoBehaviour
         sellMenu.SetActive(false);
         devCost.text = "Sell: " + dev.typeData.cost / 2;
         devName.text = dev.typeData.devName;
+        workText.text = activityOptions[dev.currActivity];
 
         if (dev.currActivity == defaultActivityOptions[0])
         {
@@ -61,6 +64,11 @@ public class DevOptions : MonoBehaviour
 
         btn1.text.text = activityOptions[btn1.option];
         btn2.text.text = activityOptions[btn2.option];
+    }
+
+    private void Update()
+    {
+        exhausted.SetActive(dev.energy == 0);
     }
 
     public void OpenOptions()
@@ -111,7 +119,7 @@ public class DevOptions : MonoBehaviour
         {
             btn1.option = defaultActivityOptions[0];
         }
-
+        workText.text = activityOptions[dev.currActivity];
         btn1.text.text = activityOptions[btn1.option];
         btn2.text.text = activityOptions[btn2.option];
     }
@@ -130,6 +138,7 @@ public class DevOptions : MonoBehaviour
             btn2.option = defaultActivityOptions[1];
         }
 
+        workText.text = activityOptions[dev.currActivity];
         btn1.text.text = activityOptions[btn1.option];
         btn2.text.text = activityOptions[btn2.option];
     }
