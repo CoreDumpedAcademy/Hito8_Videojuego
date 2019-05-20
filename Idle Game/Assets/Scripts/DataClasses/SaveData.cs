@@ -12,6 +12,7 @@ public class SaveData
     public float progress;
     public int gameCounter;
     public List<DevState> devStateArray;
+    public int resets;
     public DateTime lastLogOut;
     public bool notDefaultfile; 
 
@@ -20,6 +21,7 @@ public class SaveData
         coins = 0;
         progress = 0;
         gameCounter = 0;
+        resets = 0;
     }
 
     public void saveInLocal()
