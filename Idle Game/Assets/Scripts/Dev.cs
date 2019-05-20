@@ -52,8 +52,8 @@ public class Dev : MonoBehaviour
     float trainPeriod = 0.5f;
     public float maxEnergy = 100;
     TimeSpan maxRestTime = new TimeSpan(0, 01, 00);        //Time it takes to go from 0 to full energy
-    TimeSpan maxWorkTime = new TimeSpan(0, 00, 30);        //Time it takes to go from full to 0 energy while working
-    TimeSpan maxTrainTime = new TimeSpan(0, 00, 10);       //Same, but while training
+    TimeSpan maxWorkTime = new TimeSpan(0, 30, 00);        //Time it takes to go from full to 0 energy while working
+    TimeSpan maxTrainTime = new TimeSpan(0, 15, 00);       //Same, but while training
     double localCounter = 0;                               //counts time to know when to produce
     float increaseExp = 1.15f;
     float increaseProd = 1.3f;
