@@ -39,6 +39,7 @@ public class Dev : MonoBehaviour
     public float prodFreq;
     public float prod;                           //amount it currently produces 
     public float prodPeriod;                     //time in seconds between generating production (inverse of baseProdFreq)
+    float trainPeriod;
     float energyFactor;                       //Inrease factor of production based on energy;
     float energyGain;
     float energyLoss;                                       // depend's on activity
@@ -49,7 +50,7 @@ public class Dev : MonoBehaviour
     //Dev "constants"
     int maxLvl = 50;
     float restPeriod = 0.5f;                               //seconds between resting steps
-    float trainPeriod = 0.5f;
+    
     public float maxEnergy = 100;
     TimeSpan maxRestTime = new TimeSpan(0, 01, 00);        //Time it takes to go from 0 to full energy
     TimeSpan maxWorkTime = new TimeSpan(0, 30, 00);        //Time it takes to go from full to 0 energy while working
@@ -96,6 +97,8 @@ public class Dev : MonoBehaviour
         expGain = baseExpGain;
 
         energy = 100;
+
+        trainPeriod = prodPeriod * 0.5f;
 
         energyGain = setEnergyGain();
         energyLoss = setEnergyLoss();
