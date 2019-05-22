@@ -32,8 +32,6 @@ public class AudioController : MonoBehaviour
         source = sourceObj.GetComponent<AudioSource>();
         listener = listenerObj.GetComponent<AudioListener>();
 
-        Debug.Log("Start");
-
         audioClips = Resources.LoadAll(audioClipsPath, typeof(AudioClip));
         musicClips = Resources.LoadAll(musicClipsPath, typeof(AudioClip));
 

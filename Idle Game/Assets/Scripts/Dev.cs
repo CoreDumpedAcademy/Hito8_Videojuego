@@ -80,7 +80,7 @@ public class Dev : MonoBehaviour
             baseSetUp();
 
             active = true;
-        } 
+        }
     }
 
     void baseSetUp()
