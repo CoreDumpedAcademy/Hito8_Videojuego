@@ -7,7 +7,9 @@ public class BuffController : MonoBehaviour
     string resetBuffsPath = "BuffTypes";
     BuffData[] resetBuffs;
     int resetBuffNumer;
+
     public buffValues buffs;
+    public List<BuffData> activeBuffs = new List<BuffData>();
 
     void Awake()
     {
@@ -25,15 +27,27 @@ public class BuffController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            applyBuff( getRamdomResetBuff() );
+            applyBuff( getRandomResetBuff() );
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log(buffs.ToString());
         }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            writeActiveBuffs();
+        }
     }
 
-    public BuffData getRamdomResetBuff()
+    public void writeActiveBuffs()
+    {
+        Debug.Log("Active buffs:");
+        foreach( BuffData buff in activeBuffs)
+        {
+            Debug.Log(" " + buff.name);
+        }
+    }
+    public BuffData getRandomResetBuff()
     {
         BuffData buff = resetBuffs[0];    //Initiated to default Buff
         int buffInd = Random.Range(1, resetBuffNumer);
@@ -44,6 +58,9 @@ public class BuffController : MonoBehaviour
     public void applyBuff( BuffData buff )
     {
         Debug.Log("Buff applied: " + buff.name);
+
+        activeBuffs.Add(buff);
+
         switch (buff.type){
             case BuffData.bufftype.initCoinIncr:
                 buffs.initCoinIncr += (int)buff.addValue;
