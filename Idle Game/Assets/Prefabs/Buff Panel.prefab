@@ -917,7 +917,7 @@ MonoBehaviour:
   panel: {fileID: 7262390624932051370}
   buffName: {fileID: 1821879332978174295}
   buffDescription: {fileID: 1846885225417094618}
-  sprite: {fileID: 6041932226508270871}
+  image: {fileID: 1178717773686945949}
 --- !u!1 &8879112111276058305
 GameObject:
   m_ObjectHideFlags: 0

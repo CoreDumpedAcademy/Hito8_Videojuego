@@ -12,6 +12,7 @@ public class SaveData
     public float progress;
     public int gameCounter;
     public List<DevState> devStateArray;
+    public List<string> activeBuffs;
     public int resets;
     public DateTime lastLogOut;
     public bool notDefaultfile; 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuffPanel : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class BuffPanel : MonoBehaviour
 
     public TextMeshProUGUI buffName;
     public TextMeshProUGUI buffDescription;
-    public Animator sprite;
+    public Image image;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class BuffPanel : MonoBehaviour
         data = buff;
         panel.SetActive(true);
         buffName.text = data.buffName;
-        sprite.runtimeAnimatorController = data.artwork;
+        image.sprite = data.artwork;
         Description(data.type);
     }
 

@@ -6,6 +6,7 @@ public class BuffController : MonoBehaviour
 {
     GameObject panelObject;
     BuffPanel panelController;
+    GameController gameController;
 
     string resetBuffsPath = "BuffTypes";
     BuffData[] resetBuffs;
@@ -16,6 +17,8 @@ public class BuffController : MonoBehaviour
 
     void Awake()
     {
+        gameController = gameObject.GetComponent<GameController>();
+
         panelObject = GameObject.Find("BuffPanel");
         panelController = panelObject.GetComponent<BuffPanel>();
 
@@ -55,17 +58,30 @@ public class BuffController : MonoBehaviour
     }
     public BuffData getRandomResetBuff()
     {
-        BuffData buff = resetBuffs[0];    //Initiated to default Buff
-        int buffInd = Random.Range(1, resetBuffNumer);
+        BuffData buff = resetBuffs[ resetBuffs.Length-1 ];    //Initiated to default Buff
+        int buffInd = Random.Range(0, resetBuffNumer-1);
         buff = resetBuffs[buffInd];
         return buff;
+    }
+
+    public List<string> getActiveBuffs()
+    {
+        List<string> list = new List<string>();
+        foreach (BuffData buff in activeBuffs)
+        {
+            list.Add(buff.name);
+            Debug.Log(buff.name);
+        }
+        return list;
     }
 
     public void applyBuff( BuffData buff )
     {
         Debug.Log("Buff applied: " + buff.name);
-        panelController.NewBuff(buff);
-
+        if (gameController.loading == false)
+        {
+            panelController.NewBuff(buff);
+        }
         activeBuffs.Add(buff);
 
         switch (buff.type){
@@ -88,6 +104,15 @@ public class BuffController : MonoBehaviour
             default:
                 Debug.Log("No buff type");
                 break;
+        }
+    }
+
+    public void loadBuffs(List<string> list)
+    {
+        foreach (string buffName in list)
+        {
+            BuffData buff = Resources.Load<BuffData>(resetBuffsPath + "/" + buffName);
+            applyBuff(buff);
         }
     }
 

@@ -166,6 +166,7 @@ public class Dev : MonoBehaviour
 
     public int elapsedTime(double timeCounter)             //Returns the amount of times produced in the elapsed time
     {
+        
         int count = 0;
         if(active)
         {
@@ -361,6 +362,8 @@ public class Dev : MonoBehaviour
         exp = state.exp;
         energy = state.energy;
         currActivity = state.activity;
+
+        energyFactor = updateEnergyFactor();
     }
 
     public int correctProduction(int count, double seconds)            //Return how far production deviates from expected productions

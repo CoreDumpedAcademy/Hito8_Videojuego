@@ -243,9 +243,9 @@ public class GameController : MonoBehaviour
         save.progress = progress;
         save.gameCounter = gameCounter;
         save.devStateArray = devController.getDevState();
+        save.activeBuffs = buffController.getActiveBuffs();
         save.lastLogOut = DateTime.Now;
         save.resets = resets;
-        //get dev data
 
         return save;
     }
@@ -267,6 +267,8 @@ public class GameController : MonoBehaviour
         progress = save.progress;
         gameCounter = save.gameCounter;
         resets = save.resets;
+
+        buffController.loadBuffs(save.activeBuffs);
 
         devController.clearDevs();
         devController.recreateDevs(save.devStateArray);
@@ -290,6 +292,6 @@ public class GameController : MonoBehaviour
         }
         resetFactor = updateResetFactor();
         resetMinGames = updateMinGames();
-        resetAvailable = gameCounter >= resetMinGames;
+        if (gameCounter >= resetBaseMinGames) allowReset(true);
     }
 }
