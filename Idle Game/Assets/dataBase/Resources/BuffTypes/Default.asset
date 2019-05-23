@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fe4529e2e819540ad74e2a4a668e21, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
-  artwork: {fileID: 21300000, guid: b3f9829a33d052f479b3c4f540bfd02b, type: 3}
+  artwork: {fileID: 9100000, guid: 5ee8eb399c9be4b4cb358c12ad43639b, type: 2}
   buffName: Fail
   type: 0
   addValue: 0

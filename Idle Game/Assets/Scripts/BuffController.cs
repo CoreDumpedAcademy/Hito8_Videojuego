@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BuffController : MonoBehaviour
 {
+    GameObject panelObject;
+    BuffPanel panelController;
+
     string resetBuffsPath = "BuffTypes";
     BuffData[] resetBuffs;
     int resetBuffNumer;
@@ -13,6 +16,9 @@ public class BuffController : MonoBehaviour
 
     void Awake()
     {
+        panelObject = GameObject.Find("BuffPanel");
+        panelController = panelObject.GetComponent<BuffPanel>();
+
         resetBuffs = Resources.LoadAll<BuffData>(resetBuffsPath);
         resetBuffNumer = resetBuffs.Length;
         
@@ -58,6 +64,7 @@ public class BuffController : MonoBehaviour
     public void applyBuff( BuffData buff )
     {
         Debug.Log("Buff applied: " + buff.name);
+        panelController.NewBuff(buff);
 
         activeBuffs.Add(buff);
 
