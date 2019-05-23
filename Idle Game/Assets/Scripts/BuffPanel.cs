@@ -20,13 +20,10 @@ public class BuffPanel : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    public void NewBuff()
+    public void NewBuff(BuffData buff)
     {
+        data = buff;
         panel.SetActive(true);
         buffName.text = data.buffName;
         sprite.runtimeAnimatorController = data.artwork;
@@ -52,11 +49,15 @@ public class BuffPanel : MonoBehaviour
                 break;
 
             case BuffData.bufftype.rewIncr:
-                buffDescription.text = "Increase of initial rew??: " + data.addValue;
+                buffDescription.text = "Increase of reward: " + data.addValue;
                 break;
 
-            default :
+            case BuffData.bufftype.expIncr :
                 buffDescription.text = "Increase of experience: " + data.addValue;
+                break;
+
+            default:
+                buffDescription.text = "No buff applied";
                 break;
         }
     }
