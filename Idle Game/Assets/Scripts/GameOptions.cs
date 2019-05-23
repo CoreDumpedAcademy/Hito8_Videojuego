@@ -23,7 +23,6 @@ public class GameOptions : MonoBehaviour
         int currSpeed = (int)(gameController.resetFactor * 100);
         int nextSpeed = (int)((gameController.resetFactor + gameController.resetIncreaseFactor) * 100);
 
-        Debug.Log(currSpeed + " " + nextSpeed);
         currProdSpeed.text = currSpeed.ToString() + "%";
         nextProdSpeed.text = nextSpeed.ToString() + "%";
     }

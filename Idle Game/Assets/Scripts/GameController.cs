@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     CentralTimer timer;
-    DevController devFunctions;          //reference to script containing dev functions. GameController acts as interface.
+    DevController devController;          //reference to script containing dev functions. GameController acts as interface.
+    BuffController buffController;        //Similar, but with buffs
+
     public AudioController audio;
     public DisplayInfo displayInfo;
 
@@ -30,6 +32,7 @@ public class GameController : MonoBehaviour
     private float maxScaleFactor;
 
     //in game "constants"
+    public long initialCoins = 150;
     public long initialReward = 50;            //Coin reward for completing game
     private long rewardIncrease = 10;
     private float initialMax = 10;
@@ -41,21 +44,22 @@ public class GameController : MonoBehaviour
     bool resetAvailable = false;
 
     public int sessionTimesProduced = 0;
-    public long cost = 150;
+    public long cost;
     public bool loading = false;
 
     void Start()
     {
         audio = GetComponent<AudioController>();
         timer = GetComponent<CentralTimer>();
-        devFunctions = gameObject.GetComponent<DevController>();
+        devController = gameObject.GetComponent<DevController>();
+        buffController = gameObject.GetComponent<BuffController>();
 
         resetMinGames = resetBaseMinGames;
 
         max = initialMax;
         reward = initialReward;
         maxScaleFactor = initialMaxScaleFactor;
-        coins = 150;
+        coins = initialCoins;
         progress = 0;
         gameCounter = 0; if (LoadState.LoadSituation)
         {
@@ -71,13 +75,13 @@ public class GameController : MonoBehaviour
 
         if (Input.GetButtonDown("Submit")) { saveGame(); }
         else if (Input.GetButtonDown("Cancel")) { loadGame(); }
-        else if (Input.GetKeyDown(KeyCode.UpArrow)) { devFunctions.writeDevs(); }
-        else if (Input.GetKeyDown(KeyCode.DownArrow)) { devFunctions.clearDevs(); }
+        else if (Input.GetKeyDown(KeyCode.UpArrow)) { devController.writeDevs(); }
+        else if (Input.GetKeyDown(KeyCode.DownArrow)) { devController.clearDevs(); }
     }
 
     public void addProgress(float prog)
     {
-        progress += prog * resetFactor;
+        progress += prog * resetFactor * buffController.buffs.prodIncr;
         sessionTimesProduced++;
 
         while (progress > max)
@@ -95,7 +99,7 @@ public class GameController : MonoBehaviour
     //Anything done when completing a game
     private void completeGame()
     {
-        coins += reward;
+        coins += reward + buffController.buffs.rewardCoinIncr;
         gameCounter++;
         audio.playSFX( audio.clipNames.completeGameDing );
         audio.playSFX( audio.clipNames.completeGameCoins );
@@ -155,7 +159,7 @@ public class GameController : MonoBehaviour
 
     public bool spawnDev(DevData dev)              //return bool indicating if the operation was succesful 
     {
-        return devFunctions.spawnDev(dev) != null;
+        return devController.spawnDev(dev) != null;
     }
 
     public void BuyDev()
@@ -190,15 +194,19 @@ public class GameController : MonoBehaviour
 
     public void resetProgress()
     {
+        //apply buff
+        BuffData buff = buffController.getRandomResetBuff();
+        buffController.applyBuff(buff);
+
         //Reset state
         max = initialMax;
         maxScaleFactor = initialMaxScaleFactor;
         reward = initialReward;
-        coins = 150;
+        coins = initialCoins + buffController.buffs.initCoinIncr;
         progress = 0;
         gameCounter = 0;
 
-        devFunctions.clearDevs();
+        devController.clearDevs();
 
         resets++;
         resetFactor = updateResetFactor();
@@ -234,7 +242,7 @@ public class GameController : MonoBehaviour
         save.coins = coins;
         save.progress = progress;
         save.gameCounter = gameCounter;
-        save.devStateArray = devFunctions.getDevState();
+        save.devStateArray = devController.getDevState();
         save.lastLogOut = DateTime.Now;
         save.resets = resets;
         //get dev data
@@ -260,8 +268,8 @@ public class GameController : MonoBehaviour
         gameCounter = save.gameCounter;
         resets = save.resets;
 
-        devFunctions.clearDevs();
-        devFunctions.recreateDevs(save.devStateArray);
+        devController.clearDevs();
+        devController.recreateDevs(save.devStateArray);
 
         //Simulate in-game processes
         simulateInGameProgress();
