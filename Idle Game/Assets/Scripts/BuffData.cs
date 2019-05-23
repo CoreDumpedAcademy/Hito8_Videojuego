@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BuffData : ScriptableObject
 {
-    public Sprite artwork;
+    public RuntimeAnimatorController artwork;
 
     public string buffName;
     public bufftype type;
