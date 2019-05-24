@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1965383429098329589}
   - component: {fileID: 6279582508054441590}
   - component: {fileID: 5909287152186025799}
+  - component: {fileID: 1090206982998302478}
+  - component: {fileID: 7187148510225163430}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -47,13 +49,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audio: {fileID: 0}
   displayInfo: {fileID: 0}
+  resetButton: {fileID: 0}
   Coins: {fileID: 0}
   GameProgress: {fileID: 0}
   coins: 0
   progress: 0
   gameCounter: 0
+  resets: 0
   reward: 0
+  resetFactor: 1
+  initialCoins: 150
   initialReward: 50
+  resetIncreaseFactor: 0.5
   sessionTimesProduced: 0
   cost: 150
   loading: 0
@@ -84,3 +91,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796405de96a34f649baeaa1d295c1225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1090206982998302478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965383429098329586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6437a7f92b0987f44ad7874c1f86adc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceObj: {fileID: 0}
+  listenerObj: {fileID: 0}
+  audioClips: []
+  musicClips: []
+  prefMasterVolume: MasterVolume
+--- !u!114 &7187148510225163430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965383429098329586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416dd06ab28ba624dbccdd04147bd0a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeBuffs: []

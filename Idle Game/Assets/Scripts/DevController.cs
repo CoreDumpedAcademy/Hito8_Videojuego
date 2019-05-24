@@ -110,7 +110,7 @@ public class DevController : MonoBehaviour
         int count = 0;
         foreach (DevState dev in devStateArray)
         {
-            Debug.Log(++count);
+            //Debug.Log(++count);
             //Debug.Log(dev.ToString());
             DevData devType = findTypeByName(dev.type);
             //Debug.Log(devType.name);

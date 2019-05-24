@@ -74,7 +74,6 @@ public class DevOptions : MonoBehaviour
     public void OpenOptions()
     {
         gameController.audio.playSFX(gameController.audio.clipNames.btnClick);
-        Debug.Log("marmota");
         optionsMenu.SetActive(true);
     }
 

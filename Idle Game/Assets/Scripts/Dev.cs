@@ -10,6 +10,7 @@ public class Dev : MonoBehaviour
     //References to other game elements
     GameObject controllerObj;
     GameController controller;
+    BuffController buffController;
 
     GameObject origin;
 
@@ -80,13 +81,14 @@ public class Dev : MonoBehaviour
             baseSetUp();
 
             active = true;
-        } 
+        }
     }
 
     void baseSetUp()
     {
         controllerObj = GameObject.Find("GameController");
         controller = controllerObj.GetComponent<GameController>();
+        buffController = controller.GetComponent<BuffController>();
 
         sprite = transform.Find("Sprite").GetComponent<Animator>();
         lvlText = transform.Find("Nivel").GetComponent<Text>();
@@ -164,6 +166,7 @@ public class Dev : MonoBehaviour
 
     public int elapsedTime(double timeCounter)             //Returns the amount of times produced in the elapsed time
     {
+        
         int count = 0;
         if(active)
         {
@@ -206,7 +209,9 @@ public class Dev : MonoBehaviour
             controller.addProgress(prod * energyFactor);
             energy -= energyLoss ;
             if (energy < 0) energy = 0;
-            if (lvl < maxLvl) { gainExp(expGain * (int)energyFactor); }
+            int expIncr = (int)(expGain * energyFactor * buffController.buffs.expIncr);
+            if (lvl < maxLvl) { gainExp( expIncr ); }
+
             localCounter -= prodPeriod;
             producedInSession++;
             count++;
@@ -357,6 +362,8 @@ public class Dev : MonoBehaviour
         exp = state.exp;
         energy = state.energy;
         currActivity = state.activity;
+
+        energyFactor = updateEnergyFactor();
     }
 
     public int correctProduction(int count, double seconds)            //Return how far production deviates from expected productions
