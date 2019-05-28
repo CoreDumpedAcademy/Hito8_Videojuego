@@ -1,0 +1,55 @@
+﻿{
+    "PlayScene":{
+        "Coins": "Coins",
+        "CurrencySymbol": "C",
+
+        "Game": "Game",
+
+        "Options": {
+            "Settings": "Settings",
+            "PauseMenu":{
+                "Save": "Save",
+                "SaveAndQuit": "Save and quit",
+                "QuitGame": "Quit"
+            },
+
+            "Reset": "reset",
+            "ResetPanel":{
+                "Attention": "Attention",
+                "WarningText": 
+                "You'll loose all your devs and money and start from the beggining. Are you sure you want to reset?", 
+                "ProductionSpeed": "Production Speed",
+                "GoBack": "Go back"
+            }
+        },
+
+        "Store":{
+            "StoreName": "Store",
+            "NameIndicator": "Name: ",
+            "PriceIndicator": "Price: ",
+            "Buy": "Buy",
+            "Exit": "Exit"
+        },
+
+        "DevInfo":{
+            "LevelIndicator": "Lvl: ",
+            "MaxLevel": "MX",
+            "DevPanel":{
+                "Energy": "Energy",
+                "SellDev": "Sell Dev",
+                "Activities":{
+                    "Working": "Working",
+                    "Training": "Training",
+                    "Resting": "Resting"
+                }
+            }
+        } 
+    },
+
+    "InitialScene":{
+        "Play": "Play",
+        "NewGame": "New Game",
+        "LoadGame": "Load Game",
+        "QuitGame": "Quit"
+    }
+}
