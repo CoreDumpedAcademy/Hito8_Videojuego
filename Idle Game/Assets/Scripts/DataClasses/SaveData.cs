@@ -28,7 +28,7 @@ public class SaveData
     public void saveInLocal()
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/testData.save");
+        FileStream file = File.Create(Application.persistentDataPath + "/" + GameText.text.Paths.SavePath);
         bf.Serialize(file, this);
         file.Close();
     }
@@ -36,7 +36,7 @@ public class SaveData
     public SaveData getFromLocal()
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/testData.save", FileMode.Open);
+        FileStream file = File.Open(Application.persistentDataPath + "/" + GameText.text.Paths.SavePath, FileMode.Open);
         SaveData save = (SaveData)bf.Deserialize(file);
         file.Close();
 

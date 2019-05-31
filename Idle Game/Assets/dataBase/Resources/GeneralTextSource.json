@@ -1,17 +1,18 @@
 ﻿{
+    "Test": "Miau",
+
     "PlayScene":{
         "Coins": "Coins",
         "CurrencySymbol": "C",
 
         "Game": "Game",
 
-        "Options": {
-            "Settings": "Settings",
-            "PauseMenu":{
-                "Save": "Save",
-                "SaveAndQuit": "Save and quit",
-                "QuitGame": "Quit"
-            },
+        "Options":{
+            "Settings": "Settings",        
+            "Save": "Save",
+            "SaveAndQuit": "Save and quit",
+            "QuitGame": "Quit",
+        
 
             "Reset": "reset",
             "ResetPanel":{
@@ -34,22 +35,35 @@
         "DevInfo":{
             "LevelIndicator": "Lvl: ",
             "MaxLevel": "MX",
-            "DevPanel":{
-                "Energy": "Energy",
-                "SellDev": "Sell Dev",
-                "Activities":{
-                    "Working": "Working",
-                    "Training": "Training",
-                    "Resting": "Resting"
-                }
+            "Energy": "Energy",
+            "SellDev": "Sell Dev",
+            "Activities":{
+                "Working": "Working",
+                "Training": "Training",
+                "Resting": "Resting"
             }
-        } 
+        
+        },
+
+        "BuffPanel":{
+            "Continue": "Continue"
+        }
     },
 
     "InitialScene":{
+        "GameTitle": "Idle Dev",
         "Play": "Play",
         "NewGame": "New Game",
         "LoadGame": "Load Game",
         "QuitGame": "Quit"
+    },
+
+    "Paths":{
+        "SavePath": "saveData.save"
+    },
+
+    "SceneNames":{
+        "InitScene": "InitialScene",
+        "PlayScene": "PlayScene"
     }
 }

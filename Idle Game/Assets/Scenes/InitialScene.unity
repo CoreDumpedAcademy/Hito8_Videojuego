@@ -1131,8 +1131,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f112703044493a44dabf785a4371e644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadButton: {fileID: 972385133}
+  loadButtonObject: {fileID: 972385133}
+  title: {fileID: 400957653}
+  loadButton: {fileID: 1456252126}
   playButton: {fileID: 1515507808}
+  quitButton: {fileID: 1093162749}
+  GeneralTextSource:
+    Test: 
+    PlayScene:
+      Coins: 
+      CurrencySymbol: 
+      Game: 
+      Options:
+        Settings: 
+        Save: 
+        SaveAndQuit: 
+        QuitGame: 
+        Reset: 
+        ResetPanel:
+          Attention: 
+          WarningText: 
+          ProductionSpeed: 
+          GoBack: 
+      Store:
+        StoreName: 
+        NameIndicator: 
+        PriceIndicator: 
+        Buy: 
+        Exit: 
+      DevInfo:
+        LevelIndicator: 
+        MaxLevel: 
+        Energy: 
+        SellDev: 
+        Activities:
+          Working: 
+          Training: 
+          Resting: 
+      BuffPanel:
+        Continue: 
+    InitialScene:
+      GameTitle: 
+      Play: 
+      NewGame: 
+      LoadGame: 
+      QuitGame: 
+    Paths:
+      SavePath: 
+    SceneNames:
+      InitScene: 
+      PlayScene: 
 --- !u!4 &1273233868
 Transform:
   m_ObjectHideFlags: 0
