@@ -11,6 +11,8 @@ public class InitMenuControll : MonoBehaviour
 
     private void Start()
     {
+        //Screen.fullScreen = false;
+
         LoadState.LoadSituation = false;
 
         print(Application.persistentDataPath);
