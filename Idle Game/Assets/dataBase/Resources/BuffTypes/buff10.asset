@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fe4529e2e819540ad74e2a4a668e21, type: 3}
   m_Name: buff10
   m_EditorClassIdentifier: 
-  artwork: {fileID: 0}
+  artwork: {fileID: 21300000, guid: 4566e424bf000c446a415ea77d684a08, type: 3}
   buffName: They learn fast
   type: 4
   addValue: 10

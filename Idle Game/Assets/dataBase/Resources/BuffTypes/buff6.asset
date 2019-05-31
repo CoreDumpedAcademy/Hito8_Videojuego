@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fe4529e2e819540ad74e2a4a668e21, type: 3}
   m_Name: buff6
   m_EditorClassIdentifier: 
-  artwork: {fileID: 0}
+  artwork: {fileID: 21300000, guid: 817070c27e6601342bc2cbdd990452f5, type: 3}
   buffName: Im increasing your paycheck
   type: 2
   addValue: 50
