@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameOptions : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class GameOptions : MonoBehaviour
     GameController gameController;
 
     public GameObject warningPanel;
-    public Text currProdSpeed;
-    public Text nextProdSpeed;
+    public TextMeshProUGUI currProdSpeed;
+    public TextMeshProUGUI nextProdSpeed;
 
     void Start()
     {

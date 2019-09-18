@@ -3,19 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class GameController : MonoBehaviour
 {
     CentralTimer timer;
     DevController devController;          //reference to script containing dev functions. GameController acts as interface.
     BuffController buffController;        //Similar, but with buffs
 
+    SetPlaySceneText setSceneText;
+
     public AudioController audio;
     public DisplayInfo displayInfo;
 
     public Button resetButton;
 
-    public Text Coins;
+    public TextMeshProUGUI Coins;
     public Slider GameProgress;
     
     //Variables in save data
@@ -54,6 +56,8 @@ public class GameController : MonoBehaviour
         devController = gameObject.GetComponent<DevController>();
         buffController = gameObject.GetComponent<BuffController>();
 
+        setSceneText = GetComponent<SetPlaySceneText>();
+
         resetMinGames = resetBaseMinGames;
 
         max = initialMax;
@@ -61,7 +65,11 @@ public class GameController : MonoBehaviour
         maxScaleFactor = initialMaxScaleFactor;
         coins = initialCoins;
         progress = 0;
-        gameCounter = 0; if (LoadState.LoadSituation)
+        gameCounter = 0;
+
+        setSceneText.LoadTextSource();
+
+        if (LoadState.LoadSituation)
         {
             loadGame();
         }
