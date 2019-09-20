@@ -45,8 +45,12 @@ public class SetPlaySceneText : MonoBehaviour
         SPlayScene.SOptions.SResetPanel resetPanelText = optionsText.ResetPanel;
 
         Options_resetPanel_attention.text = resetPanelText.Attention;
+        Options_resetPanel_attention.faceColor = new Color32(255, 0, 0, 255) ;
+
         Options_resetPanel_warning.text = resetPanelText.WarningText;
         Options_resetPanel_prodSpeed.text = resetPanelText.ProductionSpeed;
+        Options_resetPanel_prodSpeed.faceColor = new Color32(25, 25, 255, 255);
+
         Options_resetPanel_resetButton.text = optionsText.Reset;
         Options_resetPanel_backButton.text = resetPanelText.GoBack;
 

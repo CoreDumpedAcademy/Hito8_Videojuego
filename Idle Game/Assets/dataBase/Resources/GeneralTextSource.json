@@ -1,10 +1,12 @@
 ﻿{
     "Test": "Miau",
+    "PercentSymbol":  "%",
+    "Yes":  "Yes",
+    "No":  "No",
 
     "PlayScene":{
         "Coins": "Coins",
         "CurrencySymbol": "C",
-
         "Game": "Game",
 
         "Options":{
@@ -34,9 +36,11 @@
 
         "DevInfo":{
             "LevelIndicator": "Lvl: ",
+            "Exhausted":  "Exhausted",
             "MaxLevel": "MX",
             "Energy": "Energy",
             "SellDev": "Sell Dev",
+            "SellWarning" :  "Are you sure you want to sell this dev?",
             "Activities":{
                 "Working": "Working",
                 "Training": "Training",

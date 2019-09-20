@@ -7,6 +7,9 @@ using UnityEngine;
 public class TextSource
 {
     public string Test;
+    public string PercentSymbol;
+    public string Yes;
+    public string No;
     public SPlayScene PlayScene;
     public SInitialScene InitialScene;
     public Spaths Paths;
@@ -64,9 +67,11 @@ public struct SPlayScene
     public struct SDevInfo
     {
         public string LevelIndicator;
+        public string Exhausted;
         public string MaxLevel;
         public string Energy;
         public string SellDev;
+        public string SellWarning;
 
         public SActivities Activities;
 

@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DevOptions : MonoBehaviour
-{
+{ 
     public GameObject optionsMenu;
     public GameObject sellMenu;
-    public GameObject exhausted;
-    public Text devName;
-    public Text devCost;
-    public Text workText;
+
+    SPlayScene.SDevInfo devText;
+
+    public TextMeshProUGUI devName;
+    public TextMeshProUGUI sellText;
+    public TextMeshProUGUI sellWarning;
+    public TextMeshProUGUI sellYes;
+    public TextMeshProUGUI sellNo;
+    public TextMeshProUGUI devCost;
+    public TextMeshProUGUI workText;
+    public TextMeshProUGUI energyText;
+    public TextMeshProUGUI exhaustedText;
+
     public Dev dev;
     GameObject controllerObj;
     GameController gameController;
@@ -34,9 +44,9 @@ public class DevOptions : MonoBehaviour
 
     Dictionary<Dev.devActivity, string> activityOptions = new Dictionary<Dev.devActivity, string>
     {
-        { Dev.devActivity.training, "Training" },
-        { Dev.devActivity.resting, "Resting" },
-        { Dev.devActivity.working,"Working" }
+        { Dev.devActivity.training, "" },
+        { Dev.devActivity.resting, "" },
+        { Dev.devActivity.working, "" }
     };
 
     // Start is called before the first frame update
@@ -46,11 +56,28 @@ public class DevOptions : MonoBehaviour
         controllerObj = GameObject.Find("GameController");
         gameController = controllerObj.GetComponent<GameController>();
         devController = controllerObj.GetComponent<DevController>();
-        optionsMenu.SetActive(false);
-        sellMenu.SetActive(false);
-        devCost.text = "Sell: " + dev.typeData.cost / 2;
+
+        devText = GameText.text.PlayScene.DevInfo;
+
+        sellText.text = devText.SellDev;
+        sellWarning.text = devText.SellWarning;
+        sellYes.text = GameText.text.Yes;
+        sellNo.text = GameText.text.No;
+        energyText.text = devText.Energy;        
+        exhaustedText.text = devText.Exhausted;
+        exhaustedText.faceColor = new Color32(255, 0, 156, 255);
+
+        activityOptions[Dev.devActivity.training] = devText.Activities.Training;
+        activityOptions[Dev.devActivity.resting] = devText.Activities.Resting;
+        activityOptions[Dev.devActivity.working] = devText.Activities.Working;
+     
+        devCost.text = dev.typeData.cost / 2 + GameText.text.PlayScene.CurrencySymbol;
         devName.text = dev.typeData.devName;
         workText.text = activityOptions[dev.currActivity];
+        workText.faceColor = new Color32(0, 52, 183, 255);
+
+        optionsMenu.SetActive(false);
+        sellMenu.SetActive(false);
 
         if (dev.currActivity == defaultActivityOptions[0])
         {
@@ -68,7 +95,7 @@ public class DevOptions : MonoBehaviour
 
     private void Update()
     {
-        exhausted.SetActive(dev.energy == 0);
+        exhaustedText.gameObject.SetActive(dev.energy == 0);
     }
 
     public void OpenOptions()
@@ -148,7 +175,7 @@ public class DevOptions : MonoBehaviour
         [SerializeField]
         public Button btn;
         [SerializeField]
-        public Text text;
+        public TextMeshProUGUI text;
         [SerializeField]
         public Dev.devActivity option;
     }

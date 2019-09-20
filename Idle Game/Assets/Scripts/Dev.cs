@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Dev : MonoBehaviour
 {
@@ -18,10 +19,12 @@ public class Dev : MonoBehaviour
 
     Animator sprite;
 
-    Text lvlText;
     public Slider expBar;
     public Slider energyBar;
-    Text expBarText;
+    public TextMeshProUGUI lvlText;
+    public TextMeshProUGUI expBarText;
+
+    SPlayScene.SDevInfo devText;
 
     //Variables that differentiate Devs types
     float baseProd = 1;            //amount of progress it produces initially
@@ -71,14 +74,14 @@ public class Dev : MonoBehaviour
     public int producedInSession = 0;
 
     void Start()
-    {
+    {        
         if (!active)                                  //If Dev is not set up, set it up
         {
             if (typeData == null)                      //If no type is assigned, give it the default
             {
                 typeSetUp(defaultTypeData);
             }
-            baseSetUp();
+            baseSetUp();            
 
             active = true;
         }
@@ -91,10 +94,10 @@ public class Dev : MonoBehaviour
         buffController = controller.GetComponent<BuffController>();
 
         sprite = transform.Find("Sprite").GetComponent<Animator>();
-        lvlText = transform.Find("Nivel").GetComponent<Text>();
-        expBarText = expBar.transform.Find("Valor").GetComponent<Text>();
 
-        lvlString = "Lvl: " + lvl;
+        devText = GameText.text.PlayScene.DevInfo;
+
+        lvlString = devText.LevelIndicator + lvl;
         expBar.value = (float)exp / maxExp;
         expGain = baseExpGain;
 
@@ -304,7 +307,7 @@ public class Dev : MonoBehaviour
             expBar.value = 1f;
         }
         textExp = expBar.value * 100;
-        expBarText.text = textExp.ToString("f2") + "%"; 
+        expBarText.text = textExp.ToString("f2") + GameText.text.PercentSymbol; 
     }
 
     //mainly scales values related to production
@@ -315,11 +318,11 @@ public class Dev : MonoBehaviour
 
         if (lvl < maxLvl)
         {
-            lvlString = "Lvl: " + lvl;
+            lvlString = devText.LevelIndicator + lvl;
         }
         else
         {
-            lvlString = "Lvl: MX";
+            lvlString = devText.LevelIndicator + devText.MaxLevel;
         }
         
         scaleExp();
